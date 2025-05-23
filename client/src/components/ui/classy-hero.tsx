@@ -123,10 +123,14 @@ const Navbar = ({ className }: NavbarProps) => {
                                     isScrolled && 'lg:hidden'
                                 )}
                                 onClick={() => {
-                                    document.getElementById('calculator')?.scrollIntoView({ 
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
+                                    setTimeout(() => {
+                                        const calculatorSection = document.getElementById('calculator');
+                                        if (calculatorSection) {
+                                            const yOffset = -80;
+                                            const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                            window.scrollTo({top: y, behavior: 'smooth'});
+                                        }
+                                    }, 100);
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -140,10 +144,14 @@ const Navbar = ({ className }: NavbarProps) => {
                             <motion.button
                                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer"
                                 onClick={() => {
-                                    document.getElementById('calculator')?.scrollIntoView({ 
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
+                                    setTimeout(() => {
+                                        const calculatorSection = document.getElementById('calculator');
+                                        if (calculatorSection) {
+                                            const yOffset = -80;
+                                            const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                            window.scrollTo({top: y, behavior: 'smooth'});
+                                        }
+                                    }, 100);
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -192,10 +200,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                             onClick={() => {
                                                 setIsMobileMenuOpen(false);
                                                 setTimeout(() => {
-                                                    document.getElementById('calculator')?.scrollIntoView({ 
-                                                        behavior: 'smooth',
-                                                        block: 'start'
-                                                    });
+                                                    const calculatorSection = document.getElementById('calculator');
+                                                    if (calculatorSection) {
+                                                        const yOffset = -80;
+                                                        const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                                        window.scrollTo({top: y, behavior: 'smooth'});
+                                                    }
                                                 }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
@@ -209,10 +219,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                             onClick={() => {
                                                 setIsMobileMenuOpen(false);
                                                 setTimeout(() => {
-                                                    document.getElementById('calculator')?.scrollIntoView({ 
-                                                        behavior: 'smooth',
-                                                        block: 'start'
-                                                    });
+                                                    const calculatorSection = document.getElementById('calculator');
+                                                    if (calculatorSection) {
+                                                        const yOffset = -80;
+                                                        const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                                                        window.scrollTo({top: y, behavior: 'smooth'});
+                                                    }
                                                 }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
@@ -557,11 +569,15 @@ const ClassyHero = () => {
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Navigate to calculator
-        document.getElementById('calculator')?.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
+        // Navigate to calculator with improved scrolling
+        setTimeout(() => {
+            const calculatorSection = document.getElementById('calculator');
+            if (calculatorSection) {
+                const yOffset = -80; // Adjust this value to account for fixed navbar
+                const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
+        }, 100);
 
         // Reset after animation completes
         setTimeout(() => {
