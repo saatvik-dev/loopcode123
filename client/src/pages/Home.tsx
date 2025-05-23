@@ -8,7 +8,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 
-import Header from '@/components/Header';
+import { HeroSection } from '@/components/ui/hero-section';
 import Footer from '@/components/Footer';
 import PricingCalculator from '@/components/PricingCalculator';
 import ServiceCard from '@/components/ServiceCard';
@@ -88,51 +88,11 @@ const Home = () => {
     : portfolioProjects.filter(project => project.category === selectedFilter);
 
   return (
-    <div className="font-sans bg-neutral-100 text-neutral-700 overflow-x-hidden">
-      <Header />
-
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-secondary text-white py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')] opacity-10 bg-cover bg-center"></div>
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <motion.div 
-            className="max-w-3xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Professional Web Development Services for Indian Businesses</h1>
-            <p className="text-lg md:text-xl opacity-90 mb-8">From static websites to custom web applications, I deliver high-quality, responsive websites tailored to your business needs at competitive prices.</p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={() => {
-                  const calculatorSection = document.getElementById('calculator');
-                  if (calculatorSection) {
-                    calculatorSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="bg-white text-primary hover:bg-neutral-100 font-semibold px-6 py-3 rounded-md inline-flex items-center justify-center transition-colors"
-              >
-                <i className="ri-calculator-line mr-2"></i> Calculate Price
-              </Button>
-              <Button
-                onClick={() => {
-                  const contactSection = document.getElementById('contact');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-3 rounded-md inline-flex items-center justify-center transition-colors"
-              >
-                <i className="ri-chat-1-line mr-2"></i> Contact Me
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+    <div className="font-sans bg-background text-foreground overflow-x-hidden">
+      <HeroSection />
 
       {/* Services Overview Section */}
-      <section id="services" className="py-16 md:py-24 bg-white">
+      <section id="services" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.h2 
