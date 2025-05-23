@@ -165,15 +165,15 @@ export function HeroSection() {
                                 <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                                     <img
                                         className="bg-background aspect-[15/8] relative hidden rounded-2xl dark:block"
-                                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
-                                        alt="Modern web development workspace"
+                                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
+                                        alt="Modern web development workspace - dark theme"
                                         width="2700"
                                         height="1440"
                                     />
                                     <img
                                         className="z-2 border-border/25 aspect-[15/8] relative rounded-2xl border dark:hidden"
-                                        src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
-                                        alt="Professional web development"
+                                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80"
+                                        alt="Professional web development workspace"
                                         width="2700"
                                         height="1440"
                                     />
@@ -182,38 +182,7 @@ export function HeroSection() {
                         </AnimatedGroup>
                     </div>
                 </section>
-                <section className="bg-background pb-16 pt-16 md:pb-32">
-                    <div className="group relative m-auto max-w-5xl px-6">
-                        <div className="absolute inset-0 z-10 flex scale-95 items-center justify-center opacity-0 duration-500 group-hover:scale-100 group-hover:opacity-100">
-                            <div className="block text-sm duration-150 hover:opacity-75">
-                                <span>Trusted by Growing Businesses</span>
-                                <ChevronRight className="ml-1 inline-block size-3" />
-                            </div>
-                        </div>
-                        <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
-                            <div className="flex">
-                                <div className="mx-auto h-12 w-24 bg-muted rounded-lg flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-muted-foreground">Client 1</span>
-                                </div>
-                            </div>
-                            <div className="flex">
-                                <div className="mx-auto h-12 w-24 bg-muted rounded-lg flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-muted-foreground">Client 2</span>
-                                </div>
-                            </div>
-                            <div className="flex">
-                                <div className="mx-auto h-12 w-24 bg-muted rounded-lg flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-muted-foreground">Client 3</span>
-                                </div>
-                            </div>
-                            <div className="flex">
-                                <div className="mx-auto h-12 w-24 bg-muted rounded-lg flex items-center justify-center">
-                                    <span className="text-xs font-semibold text-muted-foreground">Client 4</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+
             </main>
         </>
     )

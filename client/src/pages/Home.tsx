@@ -94,39 +94,67 @@ const Home = () => {
       {/* Services Overview Section */}
       <section id="services" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <motion.div 
+            className="text-center max-w-2xl mx-auto mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
               Services Offered
             </motion.h2>
             <motion.p 
-              className="text-lg text-neutral-700"
+              className="text-lg text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
             >
               Comprehensive web development solutions to help your business establish a strong online presence
             </motion.p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
             {services.map((service, index) => (
-              <ServiceCard
+              <motion.div
                 key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                price={service.price}
-                pages={service.pages}
-                delay={index * 0.1}
-              />
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 0.8 + (index * 0.1),
+                  ease: "easeOut"
+                }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -5, 
+                  transition: { duration: 0.2 } 
+                }}
+              >
+                <ServiceCard
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  price={service.price}
+                  pages={service.pages}
+                  delay={index * 0.1}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
           
           <div className="text-center mt-12">
             <motion.a 
@@ -144,36 +172,43 @@ const Home = () => {
       </section>
 
       {/* Pricing Table Section */}
-      <section id="pricing" className="py-16 md:py-24 bg-neutral-100">
+      <section id="pricing" className="py-16 md:py-24 bg-muted/50">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <motion.div 
+            className="text-center max-w-2xl mx-auto mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
               Transparent Pricing
             </motion.h2>
             <motion.p 
-              className="text-lg text-neutral-700"
+              className="text-lg text-muted-foreground"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
             >
               Clear and upfront pricing for all web development services with no hidden fees
             </motion.p>
-          </div>
+          </motion.div>
 
           <motion.div 
             className="overflow-x-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <table className="w-full min-w-[800px] border-collapse bg-white rounded-lg shadow-sm">
+            <table className="w-full min-w-[800px] border-collapse bg-background rounded-lg shadow-sm border">
               <thead>
                 <tr className="bg-neutral-900 text-white">
                   <th className="px-4 py-5 text-left font-semibold">Service Type</th>
@@ -232,28 +267,35 @@ const Home = () => {
       </section>
 
       {/* Pricing Calculator Section */}
-      <section id="calculator" className="py-16 md:py-24 bg-white">
+      <section id="calculator" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
+            <motion.div 
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
+            >
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
+                className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
                 Pricing Calculator
               </motion.h2>
               <motion.p 
-                className="text-lg text-neutral-700"
+                className="text-lg text-muted-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
               >
                 Get an instant estimate for your web development project
               </motion.p>
-            </div>
+            </motion.div>
 
             <PricingCalculator />
           </div>
