@@ -125,14 +125,7 @@ const Navbar = ({ className }: NavbarProps) => {
                                 onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
-                                    const element = document.getElementById('calculator')
-                                    if (element) {
-                                        element.scrollIntoView({ 
-                                            behavior: 'smooth',
-                                            block: 'start',
-                                            inline: 'nearest'
-                                        })
-                                    }
+                                    scrollToSection('calculator')
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -148,14 +141,7 @@ const Navbar = ({ className }: NavbarProps) => {
                                 onClick={(e) => {
                                     e.preventDefault()
                                     e.stopPropagation()
-                                    const element = document.getElementById('calculator')
-                                    if (element) {
-                                        element.scrollIntoView({ 
-                                            behavior: 'smooth',
-                                            block: 'start',
-                                            inline: 'nearest'
-                                        })
-                                    }
+                                    scrollToSection('calculator')
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -575,21 +561,33 @@ const ClassyHero = () => {
     // Words to rotate through
     const rotatingWords = ["Websites", "Applications", "Solutions"];
 
-    // Function to handle button click
+    // Universal scroll function that works reliably on all devices
+    const scrollToSection = (sectionId: string) => {
+        setTimeout(() => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                // Get the element's position
+                const elementRect = element.getBoundingClientRect();
+                const absoluteElementTop = elementRect.top + window.pageYOffset;
+                const headerOffset = 80; // Account for any fixed header
+                
+                // Scroll to position
+                window.scrollTo({
+                    top: absoluteElementTop - headerOffset,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100); // Small delay to ensure DOM is ready
+    };
+
+    // Enhanced function to handle button click with better scrolling
     const handleButtonClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Navigate to calculator with improved scrolling
-        const element = document.getElementById('calculator');
-        if (element) {
-            element.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start',
-                inline: 'nearest'
-            });
-        }
+        // Navigate to calculator
+        scrollToSection('calculator');
 
         // Reset after animation completes
         setTimeout(() => {
