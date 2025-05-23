@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { motion } from 'framer-motion';
 import { services, ServiceType } from '@/lib/pricingData';
+import { useToast } from '@/hooks/use-toast';
 
 const PricingCalculator = () => {
   const [serviceType, setServiceType] = useState<ServiceType>('static');
@@ -14,6 +15,7 @@ const PricingCalculator = () => {
   const [hosting, setHosting] = useState('client');
   const [backend, setBackend] = useState('no');
   const [revisions, setRevisions] = useState(0);
+  const { toast } = useToast();
 
   // Calculated prices
   const [basePrice, setBasePrice] = useState(7000);
@@ -54,18 +56,18 @@ const PricingCalculator = () => {
     setTotalPrice(service.base + extraPageCost + hostingCost + backendCost + extraRevisionsCost);
   }, [serviceType, pagesCount, complexity, hosting, backend, revisions]);
 
-  const handleScrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      const headerOffset = 80;
-      const elementPosition = contactSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleContactClick = () => {
+    const whatsappNumber = "917093764745";
+    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ₹${totalPrice.toLocaleString()}. Can we discuss this further?`);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+    
+    toast({
+      title: "Opening WhatsApp",
+      description: "Connecting you with our consultant...",
+      duration: 3000,
+    });
   };
 
   return (
@@ -290,7 +292,7 @@ const PricingCalculator = () => {
           
           <div className="mt-8">
             <Button 
-              onClick={handleScrollToContact}
+              onClick={handleContactClick}
               className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg text-center transition-colors"
             >
               Contact Me With This Quote
