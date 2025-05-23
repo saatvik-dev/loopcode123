@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { cn, scrollToElement } from '@/lib/utils'
 
 interface NavbarProps {
     className?: string;
@@ -581,18 +581,8 @@ const ClassyHero = () => {
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Navigate to calculator with improved scrolling for mobile
-        setTimeout(() => {
-            const calculatorSection = document.getElementById('calculator');
-            if (calculatorSection) {
-                // Use simple scrollIntoView approach which works better on mobile
-                calculatorSection.scrollIntoView({behavior: 'smooth'});
-                // Apply a second adjustment to account for fixed header
-                setTimeout(() => {
-                    window.scrollBy(0, -80);
-                }, 800);
-            }
-        }, 100);
+        // Navigate to calculator with improved scrolling utility
+        scrollToElement('calculator');
 
         // Reset after animation completes
         setTimeout(() => {
