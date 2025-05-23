@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { useScroll } from '@/hooks/use-scroll'
+import { scrollToSection } from '@/lib/scroll-utils'
 
 interface NavbarProps {
     className?: string;
@@ -11,7 +11,6 @@ interface NavbarProps {
 const Navbar = ({ className }: NavbarProps) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const { scrollToSection } = useScroll();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -188,9 +187,20 @@ const Navbar = ({ className }: NavbarProps) => {
                                         <motion.button
                                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors cursor-pointer w-full"
                                             onClick={() => {
+                                                // Close mobile menu first
                                                 setIsMobileMenuOpen(false);
-                                                // Use window.location.href with hash for more reliable navigation
-                                                window.location.href = "#calculator";
+                                                
+                                                // Wait for menu to close then navigate
+                                                setTimeout(() => {
+                                                    const calculatorSection = document.getElementById('calculator');
+                                                    if (calculatorSection) {
+                                                        // Force scroll to element
+                                                        window.scrollTo({
+                                                            top: calculatorSection.offsetTop - 80,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -201,9 +211,20 @@ const Navbar = ({ className }: NavbarProps) => {
                                         <motion.button
                                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer w-full"
                                             onClick={() => {
+                                                // Close mobile menu first
                                                 setIsMobileMenuOpen(false);
-                                                // Use window.location.href with hash for more reliable navigation
-                                                window.location.href = "#calculator";
+                                                
+                                                // Wait for menu to close then navigate
+                                                setTimeout(() => {
+                                                    const calculatorSection = document.getElementById('calculator');
+                                                    if (calculatorSection) {
+                                                        // Force scroll to element
+                                                        window.scrollTo({
+                                                            top: calculatorSection.offsetTop - 80,
+                                                            behavior: 'smooth'
+                                                        });
+                                                    }
+                                                }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -537,8 +558,7 @@ const HeroBackground = () => {
 
 const ClassyHero = () => {
     const [isButtonClicked, setIsButtonClicked] = useState(false);
-    const { scrollToSection } = useScroll();
-
+    
     // Words to rotate through
     const rotatingWords = ["Websites", "Applications", "Solutions"];
 
@@ -548,8 +568,14 @@ const ClassyHero = () => {
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Use direct hash navigation for better reliability
-        window.location.href = "#calculator";
+        // Direct method to navigate to calculator section
+        const calculatorSection = document.getElementById('calculator');
+        if (calculatorSection) {
+            calculatorSection.scrollIntoView({
+                behavior: 'smooth', 
+                block: 'start'
+            });
+        }
 
         // Reset after animation completes
         setTimeout(() => {
