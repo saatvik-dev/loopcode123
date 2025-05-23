@@ -1,0 +1,115 @@
+Design and develop a professional, user-friendly webapp to showcase my freelance web and webapp development services targeted at clients in India. The webapp should clearly communicate pricing, services offered, inclusions, exclusions, and provide an interactive pricing calculator. The goal is to help potential clients understand costs easily, view my portfolio, and reach out via WhatsApp or contact form.
+
+Core Features & Sections:
+Home / Services Overview
+
+Clear intro to services: static websites, dynamic websites, business websites, portfolios, blogs, e-commerce, custom web apps
+
+Brief pricing chart with base prices and page limits
+
+Summary of what’s included and excluded for each service
+
+Pricing Calculator
+
+User selects:
+
+Service type
+
+Number of pages
+
+Complexity level (simple, medium, complex)
+
+Hosting & domain setup options (client-provided or managed)
+
+Backend & database setup required or not
+
+Number of revisions needed
+
+Calculator dynamically updates and displays:
+
+Base price
+
+Extra page charges (based on complexity)
+
+Hosting/domain setup fees
+
+Backend & DB setup fees
+
+Extra revision charges
+
+Total estimated cost
+
+Inclusions & Exclusions Page
+
+Detailed description of what each service includes and excludes
+
+Hosting, domain purchase, database tier policies explained clearly
+
+Revision policy with included rounds and extra charges
+
+Requirements Section
+
+What documentation and materials the client needs to provide (content, designs, domain info, hosting info, email IDs)
+
+Importance of detailed requirements for timely delivery
+
+Portfolio Page
+
+Showcase past projects with images, descriptions, technologies used, and live links if applicable (include project “Tixor”)
+
+Optional client testimonials
+
+Contact Us Section
+
+Contact form with fields: name, email, phone, message
+
+WhatsApp floating/contact icon that opens direct chat with a pre-filled message
+
+Display email and phone number prominently
+
+Terms & Conditions Page
+
+Clear terms on scope, payment, ownership, confidentiality, revision limits, and liabilities
+
+Design & UX Requirements:
+Clean, modern, and professional look using a consistent color scheme (suggest blue, white, gray)
+
+Responsive design, mobile-first approach
+
+Intuitive navigation with sticky header/menu
+
+Smooth animations for calculator updates and hover effects
+
+Use icons and visuals to make pricing and service features clear and engaging
+
+Technical Details:
+Use React.js or Vue.js for frontend interactivity (especially pricing calculator)
+
+Backend optional but should support contact form (Node.js/Express or serverless)
+
+CSS framework or custom CSS for styling (TailwindCSS or similar recommended)
+
+SEO best practices for portfolio and service pages
+
+Pricing & Delivery Time (Display on the site):
+Service Type	Base Price (₹)	Pages Included	Extra Page Charge (₹)	Delivery Time	Included Revisions	Extra Revision Charge (₹)
+Static Website	7,000	5	1,000 (simple complexity)	7 days	2	1,000
+Dynamic Website	12,000	5	2,000	14 days	3	1,500
+Business Website	15,000	7	3,000	15 days	3	2,000
+Portfolio Website	6,000	4	1,000	7 days	2	1,000
+Landing Page	4,000	1	1,000	3 days	1	1,000
+Blog Website	10,000	5	1,500	14 days	3	1,500
+E-commerce Basic	20,000	7	3,000	21 days	3	2,000
+E-commerce with Payments	30,000	10	4,000	30 days	4	2,500
+Custom Web Application	40,000+	Varies	5,000 (complex pages)	30+ days (depends on scope)	4	3,000
+
+Notes on Hosting, Domain & Database:
+Domain purchase is client’s responsibility; we assist with setup for a fee
+
+Hosting is client-provided or managed by us for an extra fee
+
+Database usage limited to free tiers; paid tiers or upgrades billed to client
+
+Email IDs can be created based on hosting capabilities (client to specify)
+
+Please build a cohesive, polished, and responsive webapp incorporating all above features, sections, pricing details, and contact options (especially WhatsApp). The UI should be visually appealing and make it easy for clients to understand offerings and reach out for quotes or questions.
