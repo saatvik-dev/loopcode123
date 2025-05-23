@@ -19,179 +19,175 @@ const Navbar = ({ className }: NavbarProps) => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    const menuItems = [
+        { name: 'Work', href: '#portfolio' },
+        { name: 'Services', href: '#services' },
+        { name: 'Pricing', href: '#calculator' },
+        { name: 'Contact', href: '#contact' },
+    ];
     
     return (
-        <motion.nav
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className={cn(
-                "fixed top-0 left-0 right-0 z-50 w-full py-3 md:py-4 px-4 sm:px-6 lg:px-10 transition-all duration-300",
-                isScrolled 
-                    ? "bg-black/80 backdrop-blur-md border-b border-white/10" 
-                    : "bg-transparent",
-                className
-            )}
-        >
-            <div className="max-w-7xl mx-auto flex items-center justify-between font-sans">
-                {/* Logo on the left */}
-                <motion.div
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                    <div className="flex items-center">
-                        <div className="relative w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg flex items-center justify-center">
-                            <span className="text-black font-bold text-lg">W</span>
+        <header>
+            <motion.nav
+                data-state={isMobileMenuOpen && 'active'}
+                className="fixed z-50 w-full px-2 group"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+                <div className={cn(
+                    'mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', 
+                    isScrolled && 'bg-black/50 max-w-4xl rounded-2xl border border-white/10 backdrop-blur-lg lg:px-5'
+                )}>
+                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+                        
+                        {/* Logo and Mobile Toggle */}
+                        <div className="flex w-full justify-between lg:w-auto">
+                            <motion.div
+                                className="flex items-center space-x-2"
+                                initial={{ x: -20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.2, duration: 0.5 }}
+                            >
+                                <div className="relative w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                    <span className="text-white font-bold text-sm">W</span>
+                                </div>
+                                <span className="text-white text-lg font-bold">WebDev Pro</span>
+                            </motion.div>
+
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
+                                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                            >
+                                <motion.div
+                                    className="w-6 h-6 flex items-center justify-center"
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <svg 
+                                        className={cn(
+                                            "w-6 h-6 text-white transition-all duration-200",
+                                            isMobileMenuOpen ? "rotate-180 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
+                                        )}
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                    <svg 
+                                        className={cn(
+                                            "absolute w-6 h-6 text-white transition-all duration-200",
+                                            isMobileMenuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-180 scale-0 opacity-0"
+                                        )}
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </motion.div>
+                            </button>
                         </div>
-                        <span className="text-white relative text-lg sm:text-xl md:text-2xl font-bold ml-2 sm:ml-3 md:ml-4">WebDev Pro</span>
+
+                        {/* Desktop Menu - Center */}
+                        <div className="absolute inset-0 m-auto hidden w-fit lg:block">
+                            <motion.ul 
+                                className="flex gap-8 text-sm"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.4, duration: 0.5 }}
+                            >
+                                {menuItems.map((item, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={item.href}
+                                            className="text-white/80 hover:text-white block duration-150 font-medium"
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' })
+                                            }}
+                                        >
+                                            <span>{item.name}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </motion.ul>
+                        </div>
+
+                        {/* Mobile Menu & Desktop Actions */}
+                        <AnimatePresence>
+                            <motion.div 
+                                className={cn(
+                                    "bg-black/50 backdrop-blur-lg group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none",
+                                    isMobileMenuOpen && "block"
+                                )}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                {/* Mobile Menu Items */}
+                                <div className="lg:hidden">
+                                    <ul className="space-y-6 text-base">
+                                        {menuItems.map((item, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href={item.href}
+                                                    className="text-white/80 hover:text-white block duration-150 font-medium"
+                                                    onClick={(e) => {
+                                                        e.preventDefault()
+                                                        setIsMobileMenuOpen(false)
+                                                        document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' })
+                                                    }}
+                                                >
+                                                    <span>{item.name}</span>
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                                    <motion.a
+                                        href="#contact"
+                                        className={cn(
+                                            "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors",
+                                            isScrolled && 'lg:hidden'
+                                        )}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            setIsMobileMenuOpen(false)
+                                            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                                        }}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        Contact
+                                    </motion.a>
+                                    
+                                    <motion.a
+                                        href="#calculator"
+                                        className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            setIsMobileMenuOpen(false)
+                                            document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                        }}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        Get Started
+                                    </motion.a>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
-                </motion.div>
-
-                {/* Mobile menu button */}
-                <div className="md:hidden">
-                    <motion.button
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="text-white p-2 focus:outline-none"
-                        whileTap={{ scale: 0.95 }}
-                        aria-label="Toggle menu"
-                    >
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor" 
-                            className="w-6 h-6"
-                        >
-                            {isMobileMenuOpen ? (
-                                <path 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round" 
-                                    strokeWidth={2} 
-                                    d="M6 18L18 6M6 6l12 12" 
-                                />
-                            ) : (
-                                <path 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round" 
-                                    strokeWidth={2} 
-                                    d="M4 6h16M4 12h16M4 18h16" 
-                                />
-                            )}
-                        </svg>
-                    </motion.button>
                 </div>
-
-                {/* Desktop Menu items */}
-                <motion.div
-                    className="hidden md:flex items-center gap-4 lg:gap-8"
-                    initial={{ x: 20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                >
-                    <a
-                        href="#portfolio"
-                        className="text-sm lg:text-base text-white hover:text-white/80 font-medium transition-colors"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-                        }}
-                    >
-                        Work
-                    </a>
-                    <a
-                        href="#services"
-                        className="text-sm lg:text-base text-white hover:text-white/80 font-medium transition-colors"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
-                        }}
-                    >
-                        Services
-                    </a>
-                    <a
-                        href="#contact"
-                        className="text-sm lg:text-base text-white hover:text-white/80 font-medium transition-colors"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                        }}
-                    >
-                        Contact
-                    </a>
-                    <a
-                        href="#calculator"
-                        className="text-sm lg:text-base px-4 lg:px-5 py-2 bg-white text-black rounded-full font-medium hover:bg-white/90 transition-colors"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
-                        }}
-                    >
-                        Get started
-                    </a>
-                </motion.div>
-            </div>
-
-            {/* Mobile menu dropdown */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="md:hidden mt-2 mx-4 overflow-hidden backdrop-blur-lg bg-black/30 rounded-xl border border-white/10"
-                    >
-                        <div className="flex flex-col py-3 px-4 space-y-3">
-                            <a
-                                href="#portfolio"
-                                className="text-white hover:text-white/80 font-medium transition-colors py-2 text-center"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    setIsMobileMenuOpen(false)
-                                    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-                                }}
-                            >
-                                Work
-                            </a>
-                            <a
-                                href="#services"
-                                className="text-white hover:text-white/80 font-medium transition-colors py-2 text-center"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    setIsMobileMenuOpen(false)
-                                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })
-                                }}
-                            >
-                                Services
-                            </a>
-                            <a
-                                href="#contact"
-                                className="text-white hover:text-white/80 font-medium transition-colors py-2 text-center"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    setIsMobileMenuOpen(false)
-                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                                }}
-                            >
-                                Contact
-                            </a>
-                            <a
-                                href="#calculator"
-                                className="bg-white text-black rounded-full font-medium hover:bg-white/90 transition-colors py-2 px-4 text-center"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    setIsMobileMenuOpen(false)
-                                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
-                                }}
-                            >
-                                Get started
-                            </a>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.nav>
+            </motion.nav>
+        </header>
     );
 };
 
