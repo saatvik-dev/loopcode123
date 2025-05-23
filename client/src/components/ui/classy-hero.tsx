@@ -24,7 +24,6 @@ const Navbar = ({ className }: NavbarProps) => {
         { name: 'Work', href: '#portfolio' },
         { name: 'Services', href: '#services' },
         { name: 'Pricing', href: '#calculator' },
-        { name: 'Contact', href: '#contact' },
     ];
     
     return (
@@ -51,9 +50,9 @@ const Navbar = ({ className }: NavbarProps) => {
                                 transition={{ delay: 0.2, duration: 0.5 }}
                             >
                                 <div className="relative w-8 h-8 bg-gradient-to-br from-black to-gray-800 rounded-lg flex items-center justify-center">
-                                    <span className="text-white font-bold text-sm">W</span>
+                                    <span className="text-white font-bold text-sm">C</span>
                                 </div>
-                                <span className="text-white text-lg font-bold">WebDev Pro</span>
+                                <span className="text-white text-lg font-bold">Code Craft</span>
                             </motion.div>
 
                             <button
@@ -119,14 +118,14 @@ const Navbar = ({ className }: NavbarProps) => {
                         {/* Desktop Actions - Right */}
                         <div className="hidden lg:flex items-center gap-3">
                             <motion.a
-                                href="#contact"
+                                href="#calculator"
                                 className={cn(
                                     "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors",
                                     isScrolled && 'lg:hidden'
                                 )}
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -187,12 +186,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                     {/* Mobile Action Buttons */}
                                     <div className="flex flex-col space-y-3 pt-4 border-t border-white/10">
                                         <motion.a
-                                            href="#contact"
+                                            href="#calculator"
                                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors"
                                             onClick={(e) => {
                                                 e.preventDefault()
                                                 setIsMobileMenuOpen(false)
-                                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                                                document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -576,7 +575,7 @@ const ClassyHero = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.8 }}
                     >
-                        <span>I Build Modern</span>
+                        <span>We Build Modern</span>
                         <TextRotator
                             words={rotatingWords}
                             className="font-bold block"
@@ -591,7 +590,7 @@ const ClassyHero = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 1.1 }}
                     >
-                        Professional web development services for Indian businesses. From static websites to custom applications, I deliver quality solutions at competitive prices.
+                        Professional web development services for Indian businesses. From static websites to custom applications, we deliver quality solutions at competitive prices.
                     </motion.p>
 
                     <motion.div
@@ -617,7 +616,7 @@ const ClassyHero = () => {
                                 document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
                             }}
                         >
-                            View My Work
+                            View Our Work
                         </motion.a>
                     </motion.div>
                 </motion.div>

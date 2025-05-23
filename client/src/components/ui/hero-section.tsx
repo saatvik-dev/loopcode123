@@ -96,7 +96,7 @@ export function HeroSection() {
                                         Modern Web Solutions for Indian Businesses
                                     </h1>
                                     <p className="mx-auto mt-8 max-w-2xl text-balance text-lg text-muted-foreground">
-                                        From static websites to custom web applications, I deliver high-quality, responsive websites tailored to your business needs at competitive prices.
+                                        From static websites to custom web applications, we deliver high-quality, responsive websites tailored to your business needs at competitive prices.
                                     </p>
                                 </AnimatedGroup>
 
