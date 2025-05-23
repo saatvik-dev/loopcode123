@@ -105,9 +105,9 @@ const PricingCalculator = () => {
               <Input
                 type="number"
                 id="pagesCount"
-                min="1"
+                min="0"
                 value={pagesCount}
-                onChange={(e) => setPagesCount(parseInt(e.target.value) || 1)}
+                onChange={(e) => setPagesCount(parseInt(e.target.value) || 0)}
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
