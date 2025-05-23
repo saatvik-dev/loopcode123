@@ -321,7 +321,7 @@ const Home = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              A detailed breakdown of what's included and excluded in my services
+              A detailed breakdown of what's included and excluded in our services
             </motion.p>
           </div>
 
@@ -905,7 +905,7 @@ const Home = () => {
               
               <div>
                 <h3 className="text-xl font-semibold mb-3 text-neutral-900">3. Ownership & Rights</h3>
-                <p className="text-neutral-700">Upon full payment, the client receives ownership of the website design and content. However, I retain the right to showcase the work in my portfolio unless otherwise agreed. Third-party elements (stock photos, plugins, etc.) are subject to their own licensing terms.</p>
+                <p className="text-neutral-700">Upon full payment, the client receives ownership of the website design and content. However, we retain the right to showcase the work in our portfolio unless otherwise agreed. Third-party elements (stock photos, plugins, etc.) are subject to their own licensing terms.</p>
               </div>
               
               <div>
