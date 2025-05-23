@@ -125,17 +125,8 @@ const Navbar = ({ className }: NavbarProps) => {
                                     isScrolled && 'lg:hidden'
                                 )}
                                 onClick={() => {
-                                    setTimeout(() => {
-                                        const calculatorSection = document.getElementById('calculator');
-                                        if (calculatorSection) {
-                                            // Use simple scrollIntoView approach which works better
-                                            calculatorSection.scrollIntoView({behavior: 'smooth'});
-                                            // Apply a second adjustment to account for fixed header
-                                            setTimeout(() => {
-                                                window.scrollBy(0, -80);
-                                            }, 800);
-                                        }
-                                    }, 100);
+                                    // Direct hash navigation works better on all devices
+                                    window.location.href = "#calculator";
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -149,17 +140,8 @@ const Navbar = ({ className }: NavbarProps) => {
                             <motion.button
                                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer"
                                 onClick={() => {
-                                    setTimeout(() => {
-                                        const calculatorSection = document.getElementById('calculator');
-                                        if (calculatorSection) {
-                                            // Use simple scrollIntoView approach which works better
-                                            calculatorSection.scrollIntoView({behavior: 'smooth'});
-                                            // Apply a second adjustment to account for fixed header
-                                            setTimeout(() => {
-                                                window.scrollBy(0, -80);
-                                            }, 800);
-                                        }
-                                    }, 100);
+                                    // Direct hash navigation works better on all devices
+                                    window.location.href = "#calculator";
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
