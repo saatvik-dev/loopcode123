@@ -6,10 +6,11 @@ export interface PortfolioCardProps {
   category: string;
   description: string;
   technologies: string[];
+  website?: string;
   delay?: number;
 }
 
-const PortfolioCard = ({ image, title, category, description, technologies, delay = 0 }: PortfolioCardProps) => {
+const PortfolioCard = ({ image, title, category, description, technologies, website, delay = 0 }: PortfolioCardProps) => {
   return (
     <motion.div 
       className="bg-white rounded-xl overflow-hidden shadow-sm group"
@@ -36,9 +37,20 @@ const PortfolioCard = ({ image, title, category, description, technologies, dela
             <span key={index} className="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">{tech}</span>
           ))}
         </div>
-        <a href="#" className="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors">
-          View Details <i className="ri-arrow-right-line ml-1"></i>
-        </a>
+        {website ? (
+          <a 
+            href={website} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors"
+          >
+            Visit Website <i className="ri-external-link-line ml-1"></i>
+          </a>
+        ) : (
+          <a href="#" className="inline-flex items-center text-primary font-medium hover:text-primary/80 transition-colors">
+            View Details <i className="ri-arrow-right-line ml-1"></i>
+          </a>
+        )}
       </div>
     </motion.div>
   );

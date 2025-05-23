@@ -4,6 +4,7 @@ export interface PortfolioProject {
   category: string;
   description: string;
   technologies: string[];
+  website?: string;
 }
 
 export const portfolioProjects: PortfolioProject[] = [
@@ -12,41 +13,15 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Tixor",
     category: "Web App",
     description: "A modern event ticketing platform with real-time booking, secure payments, and QR code ticket generation.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"]
+    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    website: "https://tixor.in"
   },
   {
-    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-    title: "Artisan Crafts",
-    category: "E-commerce",
-    description: "E-commerce store for handmade artisanal products with secure checkout and seller dashboard.",
-    technologies: ["Shopify", "Liquid", "JavaScript", "TailwindCSS"]
-  },
-  {
-    image: "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-    title: "Justice Partners",
+    image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
+    title: "M-kite Kitchens",
     category: "Business",
-    description: "A professional website for a law firm with service information, attorney profiles, and appointment booking.",
-    technologies: ["WordPress", "Elementor", "PHP", "CSS"]
-  },
-  {
-    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-    title: "Lens Capture",
-    category: "Portfolio",
-    description: "A minimalist portfolio website for a professional photographer with gallery layouts and client testimonials.",
-    technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"]
-  },
-  {
-    image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-    title: "FitTrack",
-    category: "Web App",
-    description: "A fitness tracking web application with workout plans, progress visualization, and social sharing features.",
-    technologies: ["Vue.js", "Firebase", "Chart.js", "Vuetify"]
-  },
-  {
-    image: "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-    title: "Brews & Bites",
-    category: "Business",
-    description: "A website for a local cafe featuring menu display, online ordering, and table reservation system.",
-    technologies: ["WordPress", "WooCommerce", "JavaScript", "SCSS"]
+    description: "A professional website for a kitchen design and manufacturing company showcasing their portfolio, services, and contact information.",
+    technologies: ["React", "Tailwind CSS", "Next.js", "Framer Motion"],
+    website: "https://m-kite.in"
   }
 ];

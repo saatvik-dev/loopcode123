@@ -590,7 +590,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {['All', 'Business', 'E-commerce', 'Portfolio', 'Web App'].map((filter) => (
+            {['All', 'Business', 'Web App'].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
@@ -606,7 +606,7 @@ const Home = () => {
           </motion.div>
 
           {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {filteredProjects.map((project, index) => (
               <PortfolioCard
                 key={index}
@@ -615,22 +615,13 @@ const Home = () => {
                 category={project.category}
                 description={project.description}
                 technologies={project.technologies}
+                website={project.website}
                 delay={index * 0.1}
               />
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <motion.button 
-              className="bg-white hover:bg-neutral-50 text-neutral-900 font-medium px-6 py-3 rounded-md shadow-sm border border-neutral-200 transition-colors"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              View More Projects
-            </motion.button>
-          </div>
+          {/* Removed "View More Projects" button since we only have two projects now */}
         </div>
       </section>
 
