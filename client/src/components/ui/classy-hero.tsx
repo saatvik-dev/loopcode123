@@ -9,14 +9,27 @@ interface NavbarProps {
 
 const Navbar = ({ className }: NavbarProps) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     
     return (
         <motion.nav
-            initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className={cn(
-                "fixed top-0 left-0 right-0 z-50 w-full py-3 md:py-4 px-4 sm:px-6 lg:px-10 bg-transparent",
+                "fixed top-0 left-0 right-0 z-50 w-full py-3 md:py-4 px-4 sm:px-6 lg:px-10 transition-all duration-300",
+                isScrolled 
+                    ? "bg-black/80 backdrop-blur-md border-b border-white/10" 
+                    : "bg-transparent",
                 className
             )}
         >
