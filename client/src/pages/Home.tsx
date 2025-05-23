@@ -145,40 +145,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Pricing Calculator Section */}
-      <section className="py-16 md:py-24 bg-neutral-50">
-        <div className="container mx-auto px-4 md:px-8">
-          <motion.div 
-            className="text-center max-w-2xl mx-auto mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Pricing Calculator
-            </motion.h2>
-            <motion.p 
-              className="text-lg text-neutral-700"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              Get an instant quote for your project with our pricing calculator
-            </motion.p>
-          </motion.div>
-
-          <PricingCalculator />
-        </div>
-      </section>
-
       {/* Pricing Table Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -317,6 +283,40 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Pricing Calculator Section */}
+      <section className="py-16 md:py-24 bg-neutral-50">
+        <div className="container mx-auto px-4 md:px-8">
+          <motion.div 
+            className="text-center max-w-2xl mx-auto mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              Pricing Calculator
+            </motion.h2>
+            <motion.p 
+              className="text-lg text-neutral-700"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Get an instant quote for your project with our pricing calculator
+            </motion.p>
+          </motion.div>
+
+          <PricingCalculator />
+        </div>
+      </section>
+
       {/* Requirements Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -446,7 +446,7 @@ const Home = () => {
 
           {/* Portfolio Filters */}
           <motion.div 
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            className="flex flex-wrap justify-center gap-2 mb-10 mt-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
