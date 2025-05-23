@@ -14,6 +14,7 @@ import PricingCalculator from '@/components/PricingCalculator';
 import ServiceCard from '@/components/ServiceCard';
 import PortfolioCard from '@/components/PortfolioCard';
 import TestimonialCard from '@/components/TestimonialCard';
+import BlogSectionPreview from '@/components/BlogSectionPreview';
 
 import { services } from '@/lib/serviceData';
 import { portfolioProjects } from '@/lib/portfolioData';

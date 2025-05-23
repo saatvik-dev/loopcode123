@@ -87,6 +87,7 @@ const Header = () => {
               <button onClick={() => scrollToSection('pricing')} className="font-medium py-2 hover:text-primary transition-colors">Pricing</button>
               <button onClick={() => scrollToSection('calculator')} className="font-medium py-2 hover:text-primary transition-colors">Calculator</button>
               <button onClick={() => scrollToSection('portfolio')} className="font-medium py-2 hover:text-primary transition-colors">Portfolio</button>
+              <Link href="/blog" onClick={closeMenu} className="font-medium py-2 hover:text-primary transition-colors">Blog</Link>
               <button onClick={() => scrollToSection('contact')} className="font-medium py-2 hover:text-primary transition-colors">Contact</button>
               <button onClick={() => scrollToSection('terms')} className="font-medium py-2 hover:text-primary transition-colors">Terms</button>
               <Button
