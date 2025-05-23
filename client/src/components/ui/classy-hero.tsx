@@ -117,15 +117,22 @@ const Navbar = ({ className }: NavbarProps) => {
 
                         {/* Desktop Actions - Right */}
                         <div className="hidden lg:flex items-center gap-3">
-                            <motion.a
-                                href="#calculator"
+                            <motion.button
                                 className={cn(
-                                    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors",
+                                    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors cursor-pointer",
                                     isScrolled && 'lg:hidden'
                                 )}
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                    e.stopPropagation()
+                                    const element = document.getElementById('calculator')
+                                    if (element) {
+                                        element.scrollIntoView({ 
+                                            behavior: 'smooth',
+                                            block: 'start',
+                                            inline: 'nearest'
+                                        })
+                                    }
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -134,14 +141,21 @@ const Navbar = ({ className }: NavbarProps) => {
                                 transition={{ delay: 0.6, duration: 0.5 }}
                             >
                                 Contact
-                            </motion.a>
+                            </motion.button>
                             
-                            <motion.a
-                                href="#calculator"
-                                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
+                            <motion.button
+                                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer"
                                 onClick={(e) => {
                                     e.preventDefault()
-                                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                    e.stopPropagation()
+                                    const element = document.getElementById('calculator')
+                                    if (element) {
+                                        element.scrollIntoView({ 
+                                            behavior: 'smooth',
+                                            block: 'start',
+                                            inline: 'nearest'
+                                        })
+                                    }
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -150,7 +164,7 @@ const Navbar = ({ className }: NavbarProps) => {
                                 transition={{ delay: 0.8, duration: 0.5 }}
                             >
                                 Get Started
-                            </motion.a>
+                            </motion.button>
                         </div>
                     </div>
 
@@ -185,33 +199,51 @@ const Navbar = ({ className }: NavbarProps) => {
 
                                     {/* Mobile Action Buttons */}
                                     <div className="flex flex-col space-y-3 pt-4 border-t border-white/10">
-                                        <motion.a
-                                            href="#calculator"
-                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors"
+                                        <motion.button
+                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors cursor-pointer w-full"
                                             onClick={(e) => {
                                                 e.preventDefault()
+                                                e.stopPropagation()
                                                 setIsMobileMenuOpen(false)
-                                                document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                                setTimeout(() => {
+                                                    const element = document.getElementById('calculator')
+                                                    if (element) {
+                                                        element.scrollIntoView({ 
+                                                            behavior: 'smooth',
+                                                            block: 'start',
+                                                            inline: 'nearest'
+                                                        })
+                                                    }
+                                                }, 300)
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
                                             Contact
-                                        </motion.a>
+                                        </motion.button>
                                         
-                                        <motion.a
-                                            href="#calculator"
-                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
+                                        <motion.button
+                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer w-full"
                                             onClick={(e) => {
                                                 e.preventDefault()
+                                                e.stopPropagation()
                                                 setIsMobileMenuOpen(false)
-                                                document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                                setTimeout(() => {
+                                                    const element = document.getElementById('calculator')
+                                                    if (element) {
+                                                        element.scrollIntoView({ 
+                                                            behavior: 'smooth',
+                                                            block: 'start',
+                                                            inline: 'nearest'
+                                                        })
+                                                    }
+                                                }, 300)
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
                                             Get Started
-                                        </motion.a>
+                                        </motion.button>
                                     </div>
                                 </div>
                             </motion.div>
@@ -544,11 +576,20 @@ const ClassyHero = () => {
     const rotatingWords = ["Websites", "Applications", "Solutions"];
 
     // Function to handle button click
-    const handleButtonClick = () => {
+    const handleButtonClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Navigate to calculator
-        document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' });
+        // Navigate to calculator with improved scrolling
+        const element = document.getElementById('calculator');
+        if (element) {
+            element.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }
 
         // Reset after animation completes
         setTimeout(() => {
