@@ -50,7 +50,7 @@ const Navbar = ({ className }: NavbarProps) => {
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.5 }}
                             >
-                                <div className="relative w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                <div className="relative w-8 h-8 bg-gradient-to-br from-black to-gray-800 rounded-lg flex items-center justify-center">
                                     <span className="text-white font-bold text-sm">W</span>
                                 </div>
                                 <span className="text-white text-lg font-bold">WebDev Pro</span>
@@ -449,9 +449,9 @@ const HeroBackground = () => {
                 className="absolute inset-0 opacity-30"
                 animate={{
                     background: [
-                        'radial-gradient(circle at 20% 80%, #1e40af 0%, transparent 50%)',
-                        'radial-gradient(circle at 80% 20%, #7c3aed 0%, transparent 50%)',
-                        'radial-gradient(circle at 40% 40%, #1e40af 0%, transparent 50%)',
+                        'radial-gradient(circle at 20% 80%, #000000 0%, transparent 50%)',
+                        'radial-gradient(circle at 80% 20%, #374151 0%, transparent 50%)',
+                        'radial-gradient(circle at 40% 40%, #000000 0%, transparent 50%)',
                     ],
                 }}
                 transition={{
@@ -463,7 +463,7 @@ const HeroBackground = () => {
 
             {/* Floating orbs */}
             <motion.div
-                className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"
+                className="absolute top-1/4 left-1/4 w-64 h-64 bg-black/20 rounded-full blur-3xl"
                 animate={{
                     x: [0, 100, 0],
                     y: [0, -50, 0],

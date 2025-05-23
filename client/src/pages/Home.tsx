@@ -530,8 +530,8 @@ const Home = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary/10 rounded-full p-2 mt-1 mr-4">
-                    <i className="ri-layout-line text-lg text-primary"></i>
+                  <div className="bg-black/10 rounded-full p-2 mt-1 mr-4">
+                    <i className="ri-layout-line text-lg text-black"></i>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2 text-neutral-900">Website Structure</h3>
@@ -540,8 +540,8 @@ const Home = () => {
                 </div>
                 
                 <div className="flex items-start">
-                  <div className="bg-primary/10 rounded-full p-2 mt-1 mr-4">
-                    <i className="ri-links-line text-lg text-primary"></i>
+                  <div className="bg-black/10 rounded-full p-2 mt-1 mr-4">
+                    <i className="ri-links-line text-lg text-black"></i>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2 text-neutral-900">Social Media & External Links</h3>

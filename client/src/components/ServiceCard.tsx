@@ -18,8 +18,8 @@ const ServiceCard = ({ icon, title, description, price, pages, delay = 0 }: Serv
       viewport={{ once: true }}
       transition={{ delay }}
     >
-      <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-        <i className={`${icon} text-2xl text-primary`}></i>
+      <div className="w-14 h-14 bg-black/10 rounded-lg flex items-center justify-center mb-5 group-hover:bg-black/20 transition-colors">
+        <i className={`${icon} text-2xl text-black`}></i>
       </div>
       <h3 className="text-xl font-semibold mb-3 text-neutral-900">{title}</h3>
       <p className="mb-4 text-neutral-700">{description}</p>
