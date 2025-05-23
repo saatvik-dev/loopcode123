@@ -132,7 +132,7 @@ const PricingCalculator = () => {
             <RadioGroup
               value={complexity}
               onValueChange={setComplexity}
-              className="flex flex-col space-y-2"
+              className="gap-2 flex flex-col space-y-2 mt-[9px] mb-[9px]"
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="simple" id="complexity-simple" className="radio-primary" />
