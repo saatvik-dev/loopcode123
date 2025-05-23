@@ -8,7 +8,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 
-import { HeroSection } from '@/components/ui/hero-section';
+import ClassyHero from '@/components/ui/classy-hero';
 import Footer from '@/components/Footer';
 import PricingCalculator from '@/components/PricingCalculator';
 import ServiceCard from '@/components/ServiceCard';
@@ -89,7 +89,7 @@ const Home = () => {
 
   return (
     <div className="font-sans bg-background text-foreground overflow-x-hidden">
-      <HeroSection />
+      <ClassyHero />
 
       {/* Services Overview Section */}
       <section id="services" className="py-16 md:py-24 bg-background">
