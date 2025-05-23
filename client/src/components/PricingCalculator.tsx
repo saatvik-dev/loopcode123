@@ -155,7 +155,7 @@ const PricingCalculator = () => {
             <RadioGroup
               value={hosting}
               onValueChange={setHosting}
-              className="flex flex-col space-y-2"
+              className="gap-2 flex flex-col space-y-2 mt-[9px] mb-[9px]"
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="client" id="hosting-client" className="radio-primary" />
@@ -174,7 +174,7 @@ const PricingCalculator = () => {
             <RadioGroup
               value={backend}
               onValueChange={setBackend}
-              className="flex flex-col space-y-2"
+              className="gap-2 flex flex-col space-y-2 mt-[9px] mb-[9px]"
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="no" id="backend-no" className="radio-primary" />
