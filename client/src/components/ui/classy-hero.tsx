@@ -122,10 +122,11 @@ const Navbar = ({ className }: NavbarProps) => {
                                     "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors cursor-pointer",
                                     isScrolled && 'lg:hidden'
                                 )}
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    scrollToSection('calculator')
+                                onClick={() => {
+                                    document.getElementById('calculator')?.scrollIntoView({ 
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -138,10 +139,11 @@ const Navbar = ({ className }: NavbarProps) => {
                             
                             <motion.button
                                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    scrollToSection('calculator')
+                                onClick={() => {
+                                    document.getElementById('calculator')?.scrollIntoView({ 
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -187,20 +189,14 @@ const Navbar = ({ className }: NavbarProps) => {
                                     <div className="flex flex-col space-y-3 pt-4 border-t border-white/10">
                                         <motion.button
                                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors cursor-pointer w-full"
-                                            onClick={(e) => {
-                                                e.preventDefault()
-                                                e.stopPropagation()
-                                                setIsMobileMenuOpen(false)
+                                            onClick={() => {
+                                                setIsMobileMenuOpen(false);
                                                 setTimeout(() => {
-                                                    const element = document.getElementById('calculator')
-                                                    if (element) {
-                                                        element.scrollIntoView({ 
-                                                            behavior: 'smooth',
-                                                            block: 'start',
-                                                            inline: 'nearest'
-                                                        })
-                                                    }
-                                                }, 300)
+                                                    document.getElementById('calculator')?.scrollIntoView({ 
+                                                        behavior: 'smooth',
+                                                        block: 'start'
+                                                    });
+                                                }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -210,20 +206,14 @@ const Navbar = ({ className }: NavbarProps) => {
                                         
                                         <motion.button
                                             className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer w-full"
-                                            onClick={(e) => {
-                                                e.preventDefault()
-                                                e.stopPropagation()
-                                                setIsMobileMenuOpen(false)
+                                            onClick={() => {
+                                                setIsMobileMenuOpen(false);
                                                 setTimeout(() => {
-                                                    const element = document.getElementById('calculator')
-                                                    if (element) {
-                                                        element.scrollIntoView({ 
-                                                            behavior: 'smooth',
-                                                            block: 'start',
-                                                            inline: 'nearest'
-                                                        })
-                                                    }
-                                                }, 300)
+                                                    document.getElementById('calculator')?.scrollIntoView({ 
+                                                        behavior: 'smooth',
+                                                        block: 'start'
+                                                    });
+                                                }, 300);
                                             }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
@@ -561,25 +551,6 @@ const ClassyHero = () => {
     // Words to rotate through
     const rotatingWords = ["Websites", "Applications", "Solutions"];
 
-    // Universal scroll function that works reliably on all devices
-    const scrollToSection = (sectionId: string) => {
-        setTimeout(() => {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                // Get the element's position
-                const elementRect = element.getBoundingClientRect();
-                const absoluteElementTop = elementRect.top + window.pageYOffset;
-                const headerOffset = 80; // Account for any fixed header
-                
-                // Scroll to position
-                window.scrollTo({
-                    top: absoluteElementTop - headerOffset,
-                    behavior: 'smooth'
-                });
-            }
-        }, 100); // Small delay to ensure DOM is ready
-    };
-
     // Enhanced function to handle button click with better scrolling
     const handleButtonClick = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -587,7 +558,10 @@ const ClassyHero = () => {
         setIsButtonClicked(true);
         
         // Navigate to calculator
-        scrollToSection('calculator');
+        document.getElementById('calculator')?.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
 
         // Reset after animation completes
         setTimeout(() => {
