@@ -92,7 +92,7 @@ const Navbar = ({ className }: NavbarProps) => {
                         </div>
 
                         {/* Desktop Menu - Center */}
-                        <div className="absolute inset-0 m-auto hidden w-fit lg:block">
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block">
                             <motion.ul 
                                 className="flex gap-8 text-sm"
                                 initial={{ opacity: 0 }}
@@ -116,75 +116,108 @@ const Navbar = ({ className }: NavbarProps) => {
                             </motion.ul>
                         </div>
 
-                        {/* Mobile Menu & Desktop Actions */}
-                        <AnimatePresence>
-                            <motion.div 
+                        {/* Desktop Actions - Right */}
+                        <div className="hidden lg:flex items-center gap-3">
+                            <motion.a
+                                href="#contact"
                                 className={cn(
-                                    "bg-black/50 backdrop-blur-lg group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none",
-                                    isMobileMenuOpen && "block"
+                                    "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors",
+                                    isScrolled && 'lg:hidden'
                                 )}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                                }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.6, duration: 0.5 }}
                             >
-                                {/* Mobile Menu Items */}
-                                <div className="lg:hidden">
-                                    <ul className="space-y-6 text-base">
-                                        {menuItems.map((item, index) => (
-                                            <li key={index}>
-                                                <a
-                                                    href={item.href}
-                                                    className="text-white/80 hover:text-white block duration-150 font-medium"
-                                                    onClick={(e) => {
-                                                        e.preventDefault()
-                                                        setIsMobileMenuOpen(false)
-                                                        document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' })
-                                                    }}
-                                                >
-                                                    <span>{item.name}</span>
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                Contact
+                            </motion.a>
+                            
+                            <motion.a
+                                href="#calculator"
+                                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                }}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.8, duration: 0.5 }}
+                            >
+                                Get Started
+                            </motion.a>
+                        </div>
+                    </div>
 
-                                {/* Action Buttons */}
-                                <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                    <motion.a
-                                        href="#contact"
-                                        className={cn(
-                                            "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors",
-                                            isScrolled && 'lg:hidden'
-                                        )}
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            setIsMobileMenuOpen(false)
-                                            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                                        }}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        Contact
-                                    </motion.a>
-                                    
-                                    <motion.a
-                                        href="#calculator"
-                                        className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            setIsMobileMenuOpen(false)
-                                            document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
-                                        }}
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        Get Started
-                                    </motion.a>
+                    {/* Mobile Menu Dropdown */}
+                    <AnimatePresence>
+                        {isMobileMenuOpen && (
+                            <motion.div
+                                className="lg:hidden mt-2 mx-4 overflow-hidden backdrop-blur-lg bg-black/50 rounded-xl border border-white/10"
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <div className="flex flex-col py-4 px-6 space-y-4">
+                                    {/* Mobile Menu Items */}
+                                    <div className="space-y-4">
+                                        {menuItems.map((item, index) => (
+                                            <a
+                                                key={index}
+                                                href={item.href}
+                                                className="text-white/80 hover:text-white block duration-150 font-medium py-2"
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    setIsMobileMenuOpen(false)
+                                                    document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' })
+                                                }}
+                                            >
+                                                <span>{item.name}</span>
+                                            </a>
+                                        ))}
+                                    </div>
+
+                                    {/* Mobile Action Buttons */}
+                                    <div className="flex flex-col space-y-3 pt-4 border-t border-white/10">
+                                        <motion.a
+                                            href="#contact"
+                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/10 transition-colors"
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                setIsMobileMenuOpen(false)
+                                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                                            }}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            Contact
+                                        </motion.a>
+                                        
+                                        <motion.a
+                                            href="#calculator"
+                                            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors"
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                setIsMobileMenuOpen(false)
+                                                document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
+                                            }}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            Get Started
+                                        </motion.a>
+                                    </div>
                                 </div>
                             </motion.div>
-                        </AnimatePresence>
-                    </div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </motion.nav>
         </header>
