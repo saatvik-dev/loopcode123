@@ -594,10 +594,10 @@ const Home = () => {
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`px-4 py-2 bg-white rounded-md shadow-sm border border-neutral-200 font-medium transition-colors ${
+                className={`px-4 py-2 rounded-md shadow-sm border border-neutral-200 font-medium transition-colors ${
                   selectedFilter === filter 
-                    ? 'text-white bg-primary' 
-                    : 'text-neutral-700 hover:bg-primary hover:text-white'
+                    ? 'bg-primary text-white' 
+                    : 'bg-white text-neutral-700 hover:bg-primary hover:text-white'
                 }`}
               >
                 {filter}
