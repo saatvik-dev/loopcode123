@@ -126,9 +126,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                     setTimeout(() => {
                                         const calculatorSection = document.getElementById('calculator');
                                         if (calculatorSection) {
-                                            const yOffset = -80;
-                                            const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                            window.scrollTo({top: y, behavior: 'smooth'});
+                                            // Use simple scrollIntoView approach which works better
+                                            calculatorSection.scrollIntoView({behavior: 'smooth'});
+                                            // Apply a second adjustment to account for fixed header
+                                            setTimeout(() => {
+                                                window.scrollBy(0, -80);
+                                            }, 800);
                                         }
                                     }, 100);
                                 }}
@@ -147,9 +150,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                     setTimeout(() => {
                                         const calculatorSection = document.getElementById('calculator');
                                         if (calculatorSection) {
-                                            const yOffset = -80;
-                                            const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                            window.scrollTo({top: y, behavior: 'smooth'});
+                                            // Use simple scrollIntoView approach which works better
+                                            calculatorSection.scrollIntoView({behavior: 'smooth'});
+                                            // Apply a second adjustment to account for fixed header
+                                            setTimeout(() => {
+                                                window.scrollBy(0, -80);
+                                            }, 800);
                                         }
                                     }, 100);
                                 }}
@@ -202,9 +208,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                                 setTimeout(() => {
                                                     const calculatorSection = document.getElementById('calculator');
                                                     if (calculatorSection) {
-                                                        const yOffset = -80;
-                                                        const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                                        window.scrollTo({top: y, behavior: 'smooth'});
+                                                        // Simple approach for mobile
+                                                        calculatorSection.scrollIntoView({behavior: 'smooth'});
+                                                        // Fix potential header overlap
+                                                        setTimeout(() => {
+                                                            window.scrollBy(0, -80);
+                                                        }, 800);
                                                     }
                                                 }, 300);
                                             }}
@@ -221,9 +230,12 @@ const Navbar = ({ className }: NavbarProps) => {
                                                 setTimeout(() => {
                                                     const calculatorSection = document.getElementById('calculator');
                                                     if (calculatorSection) {
-                                                        const yOffset = -80;
-                                                        const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                                                        window.scrollTo({top: y, behavior: 'smooth'});
+                                                        // Simple approach for mobile
+                                                        calculatorSection.scrollIntoView({behavior: 'smooth'});
+                                                        // Fix potential header overlap
+                                                        setTimeout(() => {
+                                                            window.scrollBy(0, -80);
+                                                        }, 800);
                                                     }
                                                 }, 300);
                                             }}
@@ -569,13 +581,16 @@ const ClassyHero = () => {
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Navigate to calculator with improved scrolling
+        // Navigate to calculator with improved scrolling for mobile
         setTimeout(() => {
             const calculatorSection = document.getElementById('calculator');
             if (calculatorSection) {
-                const yOffset = -80; // Adjust this value to account for fixed navbar
-                const y = calculatorSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                window.scrollTo({top: y, behavior: 'smooth'});
+                // Use simple scrollIntoView approach which works better on mobile
+                calculatorSection.scrollIntoView({behavior: 'smooth'});
+                // Apply a second adjustment to account for fixed header
+                setTimeout(() => {
+                    window.scrollBy(0, -80);
+                }, 800);
             }
         }, 100);
 
