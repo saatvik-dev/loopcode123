@@ -124,8 +124,13 @@ const Navbar = ({ className }: NavbarProps) => {
                                     isScrolled && 'lg:hidden'
                                 )}
                                 onClick={() => {
-                                    // Direct hash navigation works better on all devices
-                                    window.location.href = "#calculator";
+                                    const calculatorSection = document.getElementById('calculator');
+                                    if (calculatorSection) {
+                                        window.scrollTo({
+                                            top: calculatorSection.offsetTop - 80,
+                                            behavior: 'smooth'
+                                        });
+                                    }
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -139,8 +144,13 @@ const Navbar = ({ className }: NavbarProps) => {
                             <motion.button
                                 className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-colors cursor-pointer"
                                 onClick={() => {
-                                    // Direct hash navigation works better on all devices
-                                    window.location.href = "#calculator";
+                                    const calculatorSection = document.getElementById('calculator');
+                                    if (calculatorSection) {
+                                        window.scrollTo({
+                                            top: calculatorSection.offsetTop - 80,
+                                            behavior: 'smooth'
+                                        });
+                                    }
                                 }}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -568,12 +578,12 @@ const ClassyHero = () => {
         e.stopPropagation();
         setIsButtonClicked(true);
         
-        // Direct method to navigate to calculator section
+        // Direct method using window.scrollTo for better cross-browser compatibility
         const calculatorSection = document.getElementById('calculator');
         if (calculatorSection) {
-            calculatorSection.scrollIntoView({
-                behavior: 'smooth', 
-                block: 'start'
+            window.scrollTo({
+                top: calculatorSection.offsetTop - 80,
+                behavior: 'smooth'
             });
         }
 
