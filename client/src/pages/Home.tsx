@@ -518,8 +518,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Blog Section */}
-      <BlogSectionPreview />
+
 
 
 
