@@ -107,7 +107,15 @@ const PricingCalculator = () => {
                 id="pagesCount"
                 min="0"
                 value={pagesCount}
-                onChange={(e) => setPagesCount(parseInt(e.target.value) || 0)}
+                onChange={(e) => {
+                  // Handle empty string and numbers properly
+                  const value = e.target.value;
+                  if (value === '') {
+                    setPagesCount(0);
+                  } else {
+                    setPagesCount(parseInt(value));
+                  }
+                }}
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
@@ -186,7 +194,15 @@ const PricingCalculator = () => {
                 id="revisions"
                 min="0"
                 value={revisions}
-                onChange={(e) => setRevisions(parseInt(e.target.value) || 0)}
+                onChange={(e) => {
+                  // Handle empty string and numbers properly
+                  const value = e.target.value;
+                  if (value === '') {
+                    setRevisions(0);
+                  } else {
+                    setRevisions(parseInt(value));
+                  }
+                }}
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
