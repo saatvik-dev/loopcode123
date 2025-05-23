@@ -182,9 +182,20 @@ const Navbar = ({ className }: NavbarProps) => {
                                                 href={item.href}
                                                 className="text-white/80 hover:text-white block duration-150 font-medium py-2"
                                                 onClick={(e) => {
-                                                    e.preventDefault()
-                                                    setIsMobileMenuOpen(false)
-                                                    document.getElementById(item.href.substring(1))?.scrollIntoView({ behavior: 'smooth' })
+                                                    e.preventDefault();
+                                                    setIsMobileMenuOpen(false);
+                                                    
+                                                    // Wait for menu to close before scrolling
+                                                    setTimeout(() => {
+                                                        const section = document.getElementById(item.href.substring(1));
+                                                        if (section) {
+                                                            // Use window.scrollTo for better cross-browser compatibility
+                                                            window.scrollTo({
+                                                                top: section.offsetTop - 80,
+                                                                behavior: 'smooth'
+                                                            });
+                                                        }
+                                                    }, 300);
                                                 }}
                                             >
                                                 <span>{item.name}</span>
@@ -649,8 +660,14 @@ const ClassyHero = () => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={(e) => {
-                                e.preventDefault()
-                                document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+                                e.preventDefault();
+                                const section = document.getElementById('portfolio');
+                                if (section) {
+                                    window.scrollTo({
+                                        top: section.offsetTop - 80,
+                                        behavior: 'smooth'
+                                    });
+                                }
                             }}
                         >
                             View Our Work
