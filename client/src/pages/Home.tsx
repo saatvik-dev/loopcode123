@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { apiRequest } from '@/lib/queryClient';
 import { queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
+import { PricingCard } from '@/components/ui/dark-gradient-pricing';
 
 import ClassyHero from '@/components/ui/classy-hero';
 import Footer from '@/components/Footer';
@@ -146,7 +147,7 @@ const Home = () => {
       </section>
 
       {/* Pricing Table Section */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white dark:bg-black">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div 
             className="text-center max-w-2xl mx-auto mb-12"
@@ -156,7 +157,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
+              className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900 dark:text-neutral-100"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -165,7 +166,7 @@ const Home = () => {
               Service Pricing Overview
             </motion.h2>
             <motion.p 
-              className="text-lg text-neutral-700"
+              className="text-lg text-neutral-700 dark:text-neutral-300"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -175,39 +176,59 @@ const Home = () => {
             </motion.p>
           </motion.div>
 
-          <motion.div 
-            className="overflow-x-auto"
-            initial={{ opacity: 0, y: 30 }}
+          {/* Import and use the PricingDemo component */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <table className="w-full max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-neutral-200">
-              <thead className="bg-neutral-50">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Service Type</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Base Price</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Pages Included</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Extra Page</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Delivery Time</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Revisions</th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-neutral-900">Extra Revision</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200">
-                {pricingTableData.map((item, index) => (
-                  <tr key={index} className="hover:bg-neutral-50 transition-colors">
-                    <td className="px-6 py-4 text-sm font-medium text-neutral-900">{item.serviceType}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.basePrice}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.pagesIncluded}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.extraPageCharge}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.deliveryTime}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.includedRevisions}</td>
-                    <td className="px-6 py-4 text-sm text-neutral-700">{item.extraRevisionCharge}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="relative z-10 mx-auto max-w-5xl">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                <PricingCard
+                  tier="Basic"
+                  price="₹15,000"
+                  bestFor="Best for small businesses"
+                  CTA="Get started"
+                  benefits={[
+                    { text: "Responsive design", checked: true },
+                    { text: "Up to 5 pages", checked: true },
+                    { text: "Contact form", checked: true },
+                    { text: "SEO optimization", checked: true },
+                    { text: "CMS integration", checked: false },
+                    { text: "E-commerce functionality", checked: false },
+                  ]}
+                />
+                <PricingCard
+                  tier="Pro"
+                  price="₹35,000"
+                  bestFor="Best for growing businesses"
+                  CTA="Most popular"
+                  benefits={[
+                    { text: "Responsive design", checked: true },
+                    { text: "Up to 10 pages", checked: true },
+                    { text: "Contact form", checked: true },
+                    { text: "SEO optimization", checked: true },
+                    { text: "CMS integration", checked: true },
+                    { text: "Basic e-commerce (up to 20 products)", checked: true },
+                  ]}
+                />
+                <PricingCard
+                  tier="Enterprise"
+                  price="Custom"
+                  bestFor="Best for large businesses"
+                  CTA="Contact us"
+                  benefits={[
+                    { text: "Responsive design", checked: true },
+                    { text: "Unlimited pages", checked: true },
+                    { text: "Advanced forms & user accounts", checked: true },
+                    { text: "Advanced SEO strategy", checked: true },
+                    { text: "Full CMS integration", checked: true },
+                    { text: "Complete e-commerce solution", checked: true },
+                  ]}
+                />
+              </div>
+            </div>
           </motion.div>
 
           <motion.div 
@@ -217,63 +238,63 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-xl font-semibold mb-6 text-neutral-900">Additional Information</h3>
+            <h3 className="text-xl font-semibold mb-6 text-neutral-900 dark:text-neutral-100">Additional Information</h3>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h4 className="font-semibold text-blue-900 mb-3">What's Included</h4>
-                <ul className="space-y-2 text-sm text-blue-800">
+              <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+                <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-3">What's Included</h4>
+                <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-400">
                   <li className="flex items-start">
-                    <i className="ri-check-line text-blue-600 mt-1 mr-2"></i>
+                    <i className="ri-check-line text-blue-600 dark:text-blue-400 mt-1 mr-2"></i>
                     Responsive design for all devices
                   </li>
                   <li className="flex items-start">
-                    <i className="ri-check-line text-blue-600 mt-1 mr-2"></i>
+                    <i className="ri-check-line text-blue-600 dark:text-blue-400 mt-1 mr-2"></i>
                     SEO optimization and meta tags
                   </li>
                   <li className="flex items-start">
-                    <i className="ri-check-line text-blue-600 mt-1 mr-2"></i>
+                    <i className="ri-check-line text-blue-600 dark:text-blue-400 mt-1 mr-2"></i>
                     Cross-browser compatibility
                   </li>
                   <li className="flex items-start">
-                    <i className="ri-check-line text-blue-600 mt-1 mr-2"></i>
+                    <i className="ri-check-line text-blue-600 dark:text-blue-400 mt-1 mr-2"></i>
                     SSL certificate and security setup
                   </li>
                   <li className="flex items-start">
-                    <i className="ri-check-line text-blue-600 mt-1 mr-2"></i>
+                    <i className="ri-check-line text-blue-600 dark:text-blue-400 mt-1 mr-2"></i>
                     Basic training and documentation
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
-                <h4 className="font-semibold text-amber-900 mb-3">Additional Costs</h4>
-                <ul className="space-y-2 text-sm text-amber-800">
+              <div className="bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg p-6">
+                <h4 className="font-semibold text-amber-900 dark:text-amber-300 mb-3">Additional Costs</h4>
+                <ul className="space-y-2 text-sm text-amber-800 dark:text-amber-400">
                   <li className="flex items-start">
-                    <div className="bg-amber-200 rounded-full p-1 mt-1 mr-3">
-                      <i className="ri-external-link-line text-xs text-amber-600"></i>
+                    <div className="bg-amber-200 dark:bg-amber-800 rounded-full p-1 mt-1 mr-3">
+                      <i className="ri-external-link-line text-xs text-amber-600 dark:text-amber-300"></i>
                     </div>
                     <div>
-                      <span className="font-medium text-amber-900">Domain & Hosting</span>
-                      <p className="text-xs text-amber-700 mt-1">Annual domain registration and hosting fees are separate.</p>
+                      <span className="font-medium text-amber-900 dark:text-amber-300">Domain & Hosting</span>
+                      <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">Annual domain registration and hosting fees are separate.</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <div className="bg-amber-200 rounded-full p-1 mt-1 mr-3">
-                      <i className="ri-image-line text-xs text-amber-600"></i>
+                    <div className="bg-amber-200 dark:bg-amber-800 rounded-full p-1 mt-1 mr-3">
+                      <i className="ri-image-line text-xs text-amber-600 dark:text-amber-300"></i>
                     </div>
                     <div>
-                      <span className="font-medium text-amber-900">Premium Assets</span>
-                      <p className="text-xs text-amber-700 mt-1">Stock photos, premium fonts, or illustrations if needed.</p>
+                      <span className="font-medium text-amber-900 dark:text-amber-300">Premium Assets</span>
+                      <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">Stock photos, premium fonts, or illustrations if needed.</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <div className="bg-amber-200 rounded-full p-1 mt-1 mr-3">
-                      <i className="ri-service-line text-xs text-amber-600"></i>
+                    <div className="bg-amber-200 dark:bg-amber-800 rounded-full p-1 mt-1 mr-3">
+                      <i className="ri-service-line text-xs text-amber-600 dark:text-amber-300"></i>
                     </div>
                     <div>
-                      <span className="font-medium text-amber-900">Third-Party Service Fees</span>
-                      <p className="text-xs text-amber-700 mt-1">Subscription fees for payment gateways, premium plugins, etc. are not included.</p>
+                      <span className="font-medium text-amber-900 dark:text-amber-300">Third-Party Service Fees</span>
+                      <p className="text-xs text-amber-700 dark:text-amber-400 mt-1">Subscription fees for payment gateways, premium plugins, etc. are not included.</p>
                     </div>
                   </li>
                 </ul>
