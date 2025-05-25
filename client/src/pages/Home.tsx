@@ -16,6 +16,7 @@ import ServiceCard from '@/components/ServiceCard';
 import PortfolioCard from '@/components/PortfolioCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import BlogSectionPreview from '@/components/BlogSectionPreview';
+import AboutSection from '@/components/AboutSection';
 
 import { services } from '@/lib/serviceData';
 import { portfolioProjects } from '@/lib/portfolioData';
@@ -501,6 +502,9 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* About Us Section */}
+      <AboutSection />
 
       {/* Testimonials Section */}
       <section className="py-16 md:py-24 bg-white">
