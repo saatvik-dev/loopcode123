@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { AnimatedGroup } from '@/components/ui/animated-group';
+import { Button } from '@/components/ui/button';
 
 interface TeamMemberProps {
   name: string;
@@ -126,14 +127,16 @@ const AboutPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.8 }}
             >
-              <Link href="/">
-                <a className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Back to Home
-                </a>
-              </Link>
+              <Button asChild variant="ghost" className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">
+                <Link href="/">
+                  <span className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Home
+                  </span>
+                </Link>
+              </Button>
             </motion.div>
           </div>
         </section>
