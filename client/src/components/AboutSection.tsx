@@ -1,15 +1,18 @@
 import { motion } from 'framer-motion';
 import { AnimatedGroup } from '@/components/ui/animated-group';
+import saiImage from '@assets/1746890035651.jpeg';
+import saatvikImage from '@assets/WhatsApp Image 2025-05-26 at 13.19.48.jpeg';
 
 interface TeamMemberProps {
   name: string;
   title: string;
   bio: string;
   experience: string;
+  image: string;
   delay?: number;
 }
 
-const TeamMember = ({ name, title, bio, experience, delay = 0 }: TeamMemberProps) => {
+const TeamMember = ({ name, title, bio, experience, image, delay = 0 }: TeamMemberProps) => {
   return (
     <motion.div 
       className="bg-white dark:bg-neutral-800 rounded-xl overflow-hidden shadow-md"
@@ -18,6 +21,13 @@ const TeamMember = ({ name, title, bio, experience, delay = 0 }: TeamMemberProps
       viewport={{ once: true }}
       transition={{ delay }}
     >
+      <div className="aspect-square w-full bg-neutral-100 dark:bg-neutral-700 overflow-hidden">
+        <img 
+          src={image} 
+          alt={name}
+          className="w-full h-full object-cover"
+        />
+      </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold text-neutral-900 dark:text-white">{name}</h3>
         <p className="text-blue-600 dark:text-blue-400 font-medium mb-4">{title}</p>
@@ -66,6 +76,7 @@ const AboutSection = () => {
             title="Frontend Developer & Designer"
             bio="Specializing in creating beautiful, responsive web interfaces with a focus on user experience and performance optimization."
             experience="Former frontend developer for multiple tech startups. Expert in React, TypeScript, and modern CSS frameworks."
+            image={saiImage}
             delay={0.2}
           />
           
@@ -74,6 +85,7 @@ const AboutSection = () => {
             title="Full-Stack Engineer"
             bio="Passionate about building scalable web applications from the ground up with expertise in both frontend and backend technologies."
             experience="Lead engineer on several successful web projects. Skilled in Node.js, database design, and API development."
+            image={saatvikImage}
             delay={0.4}
           />
         </div>
