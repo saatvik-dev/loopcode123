@@ -3,6 +3,7 @@ import { Check, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
 
 interface BenefitProps {
   text: string
@@ -43,6 +44,24 @@ export const PricingCard = ({
   benefits,
   className,
 }: PricingCardProps) => {
+  const { toast } = useToast();
+
+  const handleButtonClick = () => {
+    if (CTA === "Contact us") {
+      const whatsappNumber = "917093764745";
+      const message = encodeURIComponent(`Hi! I'm interested in the ${tier} plan (${price}). Can we discuss this further?`);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+      
+      window.open(whatsappUrl, '_blank');
+      
+      toast({
+        title: "Opening WhatsApp",
+        description: "Connecting you to our chat support...",
+        duration: 3000,
+      });
+    }
+  };
+
   return (
     <motion.div
       initial={{ filter: "blur(2px)" }}
@@ -77,6 +96,7 @@ export const PricingCard = ({
         <Button
           className="w-full mt-auto"
           variant={tier === "Pro" ? "default" : "ghost"}
+          onClick={handleButtonClick}
         >
           {CTA}
         </Button>
