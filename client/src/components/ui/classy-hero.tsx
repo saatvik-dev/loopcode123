@@ -51,7 +51,7 @@ const Navbar = ({ className }: NavbarProps) => {
                                 transition={{ delay: 0.2, duration: 0.5 }}
                             >
                                 <div className="relative w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center">
-                                    <span className="text-white font-bold text-sm">L</span>
+                                    <span className="text-white font-bold text-lg">∞</span>
                                 </div>
                                 <span className="text-white text-lg font-bold">Loopcode</span>
                             </motion.div>
