@@ -98,7 +98,6 @@ const Home = () => {
   return (
     <div className="font-sans bg-background text-foreground overflow-x-hidden">
       <ClassyHero />
-
       {/* Services Overview Section */}
       <section id="services" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
@@ -146,7 +145,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
       {/* Pricing Table Section */}
       <section className="py-16 md:py-24 bg-white dark:bg-black">
         <div className="container mx-auto px-4 md:px-8">
@@ -304,7 +302,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
       {/* Pricing Calculator Section */}
       <section id="calculator" className="py-16 md:py-24 bg-neutral-50">
         <div className="container mx-auto px-4 md:px-8">
@@ -338,7 +335,6 @@ const Home = () => {
           <PricingCalculator />
         </div>
       </section>
-
       {/* Requirements Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -349,9 +345,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-              >
-                What I Need to Get Started
-              </motion.h2>
+              >What We Need to Get Started</motion.h2>
               <motion.p 
                 className="text-lg text-neutral-700"
                 initial={{ opacity: 0, y: 20 }}
@@ -442,7 +436,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Portfolio Section */}
       <section id="portfolio" className="py-16 md:py-24 bg-neutral-100">
         <div className="container mx-auto px-4 md:px-8">
@@ -461,9 +454,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-            >
-              Check out some of my recent projects
-            </motion.p>
+            >Check out some of our recent projects</motion.p>
           </div>
 
           {/* Portfolio Filters */}
@@ -502,10 +493,8 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
       {/* About Us Section */}
       <AboutSection />
-
       {/* Testimonials Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -524,9 +513,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-            >
-              What my clients say about working with me
-            </motion.p>
+            >What our clients say about working with us</motion.p>
           </div>
 
           <motion.div 
@@ -542,11 +529,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
-
-
-
-
       {/* Terms & Conditions Section */}
       <section id="terms" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -585,7 +567,7 @@ const Home = () => {
               
               <div>
                 <h3 className="text-xl font-semibold mb-3 text-neutral-900">2. Payment Terms</h3>
-                <p className="text-neutral-700">A 50% deposit is required before project commencement, with the remaining balance due upon project completion. For projects over $2,000, payment can be split into milestone-based installments. Late payments may incur a 1.5% monthly fee.</p>
+                <p className="text-neutral-700">A 50% deposit is required before project commencement, with the remaining balance due upon project completion. For projects over 40,000, payment can be split into milestone-based installments. Late payments may incur a 1.5% monthly fee.</p>
               </div>
               
               <div>
@@ -621,7 +603,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );

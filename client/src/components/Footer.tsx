@@ -70,11 +70,11 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <i className="ri-phone-line mt-1 mr-3"></i>
-                <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
+                <a href="tel:+919876543210" className="hover:text-white transition-colors">+917093764745, +919100198981</a>
               </li>
               <li className="flex items-start">
                 <i className="ri-map-pin-line mt-1 mr-3"></i>
-                <span>Bangalore, India</span>
+                <span>Hyderabad, India</span>
               </li>
             </ul>
           </div>

@@ -294,9 +294,7 @@ const PricingCalculator = () => {
             <Button 
               onClick={handleContactClick}
               className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg text-center transition-colors"
-            >
-              Contact Me With This Quote
-            </Button>
+            >Contact Us With This Quote</Button>
             <p className="text-sm text-neutral-500 mt-4 text-center">This is an estimate. Final price may vary based on specific requirements.</p>
           </div>
         </motion.div>
