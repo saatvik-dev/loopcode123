@@ -51,7 +51,7 @@ export const PricingCard = ({
     >
       <Card
         className={cn(
-          "relative h-full w-full overflow-hidden border",
+          "relative h-full w-full overflow-hidden border flex flex-col",
           "dark:border-zinc-700 dark:bg-gradient-to-br dark:from-zinc-950/50 dark:to-zinc-900/80",
           "border-zinc-200 bg-gradient-to-br from-zinc-50/50 to-zinc-100/80",
           "p-6",
@@ -69,13 +69,13 @@ export const PricingCard = ({
             {bestFor}
           </span>
         </div>
-        <div className="space-y-4 py-9">
+        <div className="space-y-4 py-9 flex-grow">
           {benefits.map((benefit, index) => (
             <Benefit key={index} {...benefit} />
           ))}
         </div>
         <Button
-          className="w-full"
+          className="w-full mt-auto"
           variant={tier === "Pro" ? "default" : "ghost"}
         >
           {CTA}
