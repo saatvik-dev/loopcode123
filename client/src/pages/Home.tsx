@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
-import { useToast } from '@/hooks/use-toast';
 import { PricingCard } from '@/components/ui/dark-gradient-pricing';
-import { contactFormSchema } from '@shared/schema';
 
 import ClassyHero from '@/components/ui/classy-hero';
 import Footer from '@/components/Footer';
@@ -21,25 +16,12 @@ import { portfolioProjects } from '@/lib/portfolioData';
 import { testimonials } from '@/lib/testimonialData';
 import { Currency, formatPrice, services as pricingServices } from '@/lib/pricingData';
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 
-type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Home = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [currency, setCurrency] = useState<Currency>('inr');
   const [isDetecting, setIsDetecting] = useState(true);
-  const { toast } = useToast();
 
   // Auto-detect user's currency based on IP location
   useEffect(() => {
@@ -137,57 +119,7 @@ const Home = () => {
     };
   }, []);
 
-  // Contact form setup
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    },
-  });
-
-  // Contact form submission using Netlify Forms
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit = async (data: ContactFormValues) => {
-    setIsSubmitting(true);
-    
-    try {
-      const formData = new FormData();
-      formData.append('form-name', 'contact');
-      formData.append('name', data.name);
-      formData.append('email', data.email);
-      formData.append('phone', data.phone || '');
-      formData.append('message', data.message);
-
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Message sent successfully!",
-          description: "I'll get back to you as soon as possible.",
-        });
-        form.reset();
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      toast({
-        title: "Error sending message",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
-      console.error('Contact form error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  
 
   // Filter portfolio projects
   const filteredProjects = selectedFilter === 'All' 
@@ -631,145 +563,7 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-      {/* Contact Section */}
-      <section id="contact" className="py-16 md:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <motion.h2 
-                className="text-3xl md:text-4xl font-bold mb-4 text-neutral-900"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-              >
-                Get In Touch
-              </motion.h2>
-              <motion.p 
-                className="text-lg text-neutral-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-              >
-                Ready to start your project? Let's discuss your requirements
-              </motion.p>
-            </div>
-
-            <motion.div 
-              className="bg-white rounded-xl shadow-lg p-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <Form {...form}>
-                <form 
-                  name="contact" 
-                  method="POST" 
-                  data-netlify="true" 
-                  data-netlify-honeypot="bot-field"
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6"
-                >
-                  {/* Netlify form fields */}
-                  <input type="hidden" name="form-name" value="contact" />
-                  <div className="hidden">
-                    <label>
-                      Don't fill this out if you're human: <input name="bot-field" />
-                    </label>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-neutral-700">Name *</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="Your full name" 
-                              className="border-neutral-300 focus:border-blue-500"
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-neutral-700">Email *</FormLabel>
-                          <FormControl>
-                            <Input 
-                              type="email" 
-                              placeholder="your.email@example.com" 
-                              className="border-neutral-300 focus:border-blue-500"
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-neutral-700">Phone (Optional)</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="Your phone number" 
-                            className="border-neutral-300 focus:border-blue-500"
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-neutral-700">Message *</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder="Tell us about your project requirements..."
-                            className="border-neutral-300 focus:border-blue-500 min-h-[120px]"
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="text-center">
-                    <Button 
-                      type="submit" 
-                      size="lg"
-                      disabled={isSubmitting}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-                    >
-                      {isSubmitting ? "Sending..." : "Send Message"}
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Terms & Conditions Section */}
       <section id="terms" className="py-16 md:py-24 bg-white">

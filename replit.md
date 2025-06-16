@@ -58,16 +58,9 @@ This is a modern web development service platform built with React and Express.j
 ### Frontend Data Flow
 1. User interactions trigger React Hook Form handlers
 2. Form data is validated using Zod schemas
-3. TanStack Query manages API calls and caching
+3. Contact forms submit directly to Netlify Forms
 4. Toast notifications provide user feedback
 5. Framer Motion handles page transitions and animations
-
-### Backend Data Flow
-1. Express middleware validates incoming requests
-2. Zod schemas ensure data integrity
-3. Drizzle ORM handles database operations
-4. Error handling middleware provides consistent responses
-5. Session management tracks user interactions
 
 ## External Dependencies
 
@@ -77,49 +70,23 @@ This is a modern web development service platform built with React and Express.j
 - **Fonts**: Inter font family from Google Fonts
 - **Animations**: Framer Motion for smooth transitions
 
-### Backend Dependencies
-- **Database**: PostgreSQL (configured via DATABASE_URL)
-- **ORM**: Drizzle ORM for type-safe database operations
-- **Session Store**: PostgreSQL session storage
-- **Validation**: Zod for runtime type checking
-
 ### Third-party Integrations
 - **WhatsApp Business API**: Direct messaging integration
-- **Neon Database**: Serverless PostgreSQL hosting
 - **Netlify**: Static site hosting and deployment
+- **Netlify Forms**: Serverless form handling
 
 ## Deployment Strategy
 
 ### Development Environment
-- **Local Development**: Vite dev server on port 5000
-- **Database**: PostgreSQL with Drizzle migrations
+- **Local Development**: Vite dev server (will be updated to port 5173)
 - **Hot Reload**: Vite HMR for instant feedback
+- **Form Testing**: Netlify Forms integration
 
 ### Production Environment
-- **Build Process**: Vite builds client assets, esbuild bundles server
-- **Hosting**: Replit for development, Netlify for production
-- **Database**: Neon serverless PostgreSQL
-- **Asset Optimization**: Automatic bundling and minification
-
-### Database Schema
-```sql
--- Users table for authentication
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  username TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
-);
-
--- Contact submissions table
-CREATE TABLE contact_submissions (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  phone TEXT,
-  message TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-```
+- **Build Process**: Vite builds static assets
+- **Hosting**: Netlify static hosting
+- **Forms**: Netlify Forms for contact submissions
+- **Asset Optimization**: Automatic bundling and minification via Vite
 
 ## User Preferences
 
