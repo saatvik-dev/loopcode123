@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +12,9 @@ import { useToast } from '@/hooks/use-toast';
 import { services, ServiceType, Currency, formatPrice, currencySymbols } from '@/lib/pricingData';
 
 const PricingCalculator = () => {
+  // Currency state
+  const [currency, setCurrency] = useState<Currency>('inr');
+  
   const [serviceType, setServiceType] = useState<ServiceType>('static');
   const [pagesCount, setPagesCount] = useState(5);
   const [complexity, setComplexity] = useState('simple');
@@ -35,17 +40,17 @@ const PricingCalculator = () => {
 
   useEffect(() => {
     // Update included pages and revisions when service type changes
-    const service = services[serviceType];
+    const service = services[serviceType][currency] as ServicePricing;
     setPagesCount(service.pages);
-  }, [serviceType]);
+  }, [serviceType, currency]);
 
   useEffect(() => {
     // Recalculate prices whenever inputs change
-    const service = services[serviceType];
+    const service = services[serviceType][currency] as ServicePricing;
     const extraPages = Math.max(0, pagesCount - service.pages);
     const extraPageCost = extraPages * service.extraPage * complexityMultipliers[complexity];
-    const hostingCost = hosting === 'developer' ? 2000 : 0;
-    const backendCost = backend === 'yes' ? 5000 : 0;
+    const hostingCost = hosting === 'developer' ? (currency === 'inr' ? 2000 : 24) : 0;
+    const backendCost = backend === 'yes' ? (currency === 'inr' ? 5000 : 60) : 0;
     const extraRevisionsCost = revisions * service.extraRevision;
 
     setBasePrice(service.base);
@@ -55,11 +60,11 @@ const PricingCalculator = () => {
     setRevisionsPrice(extraRevisionsCost);
 
     setTotalPrice(service.base + extraPageCost + hostingCost + backendCost + extraRevisionsCost);
-  }, [serviceType, pagesCount, complexity, hosting, backend, revisions]);
+  }, [serviceType, pagesCount, complexity, hosting, backend, revisions, currency]);
 
   const handleContactClick = () => {
     const whatsappNumber = "917093764745";
-    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ₹${totalPrice.toLocaleString()}. Can we discuss this further?`);
+    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ${currencySymbols[currency]}${formatPrice(totalPrice, currency)}. Can we discuss this further?`);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     window.open(whatsappUrl, '_blank');
@@ -70,9 +75,6 @@ const PricingCalculator = () => {
       duration: 3000,
     });
   };
-
-    // Currency state
-    const [currency, setCurrency] = useState<Currency>('inr');
 
   return (
     <div className="bg-neutral-100 rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm">
@@ -108,15 +110,15 @@ const PricingCalculator = () => {
                 <SelectValue placeholder="Select service type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="static">Static Website (₹7,000)</SelectItem>
-                <SelectItem value="dynamic">Dynamic Website (₹12,000)</SelectItem>
-                <SelectItem value="business">Business Website (₹15,000)</SelectItem>
-                <SelectItem value="portfolio">Portfolio Website (₹6,000)</SelectItem>
-                <SelectItem value="landing">Landing Page (₹4,000)</SelectItem>
-                <SelectItem value="blog">Blog Website (₹10,000)</SelectItem>
-                <SelectItem value="ecommerce-basic">E-commerce Basic (₹20,000)</SelectItem>
-                <SelectItem value="ecommerce-payments">E-commerce with Payments (₹30,000)</SelectItem>
-                <SelectItem value="custom">Custom Web Application (₹40,000+)</SelectItem>
+                <SelectItem value="static">Static Website</SelectItem>
+                <SelectItem value="dynamic">Dynamic Website</SelectItem>
+                <SelectItem value="business">Business Website</SelectItem>
+                <SelectItem value="portfolio">Portfolio Website</SelectItem>
+                <SelectItem value="landing">Landing Page</SelectItem>
+                <SelectItem value="blog">Blog Website</SelectItem>
+                <SelectItem value="ecommerce-basic">E-commerce Basic</SelectItem>
+                <SelectItem value="ecommerce-payments">E-commerce with Payments</SelectItem>
+                <SelectItem value="custom">Custom Web Application</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -142,7 +144,7 @@ const PricingCalculator = () => {
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
-                {services[serviceType].pages} included
+                {services[serviceType][currency].pages} included
               </span>
             </div>
           </div>
@@ -180,11 +182,11 @@ const PricingCalculator = () => {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="client" id="hosting-client" className="radio-primary" />
-                <Label htmlFor="hosting-client" className="cursor-pointer">Client-provided (₹0)</Label>
+                <Label htmlFor="hosting-client" className="cursor-pointer">Client-provided ({currencySymbols[currency]}0)</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="developer" id="hosting-developer" className="radio-primary" />
-                <Label htmlFor="hosting-developer" className="cursor-pointer">Developer-managed (₹2,000)</Label>
+                <Label htmlFor="hosting-developer" className="cursor-pointer">Developer-managed ({currencySymbols[currency]}{currency === 'inr' ? '2,000' : '24'})</Label>
               </div>
             </RadioGroup>
           </div>
@@ -199,11 +201,11 @@ const PricingCalculator = () => {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="no" id="backend-no" className="radio-primary" />
-                <Label htmlFor="backend-no" className="cursor-pointer">Not required (₹0)</Label>
+                <Label htmlFor="backend-no" className="cursor-pointer">Not required ({currencySymbols[currency]}0)</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="yes" id="backend-yes" className="radio-primary" />
-                <Label htmlFor="backend-yes" className="cursor-pointer">Required (₹5,000)</Label>
+                <Label htmlFor="backend-yes" className="cursor-pointer">Required ({currencySymbols[currency]}{currency === 'inr' ? '5,000' : '60'})</Label>
               </div>
             </RadioGroup>
           </div>
@@ -229,7 +231,7 @@ const PricingCalculator = () => {
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
-                {services[serviceType].revisions} included
+                {services[serviceType][currency].revisions} included
               </span>
             </div>
           </div>
