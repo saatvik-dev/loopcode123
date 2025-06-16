@@ -8,6 +8,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { PricingCard } from '@/components/ui/dark-gradient-pricing';
+import { contactFormSchema } from '@shared/schema';
 
 import ClassyHero from '@/components/ui/classy-hero';
 import Footer from '@/components/Footer';
@@ -34,13 +35,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 

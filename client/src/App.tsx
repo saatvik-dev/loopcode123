@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { useEffect } from "react";
 
 function Router() {
   return (
@@ -22,6 +23,20 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    // Handle unhandled promise rejections
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      console.warn('Unhandled promise rejection:', event.reason);
+      event.preventDefault(); // Prevent the error from being logged as unhandled
+    };
+
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+
+    return () => {
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
