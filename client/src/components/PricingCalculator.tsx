@@ -12,8 +12,9 @@ import { useToast } from '@/hooks/use-toast';
 import { services, ServiceType, Currency, ServicePricing, formatPrice, currencySymbols } from '@/lib/pricingData';
 
 const PricingCalculator = () => {
-  // Currency state
+  // Currency state with automatic detection
   const [currency, setCurrency] = useState<Currency>('inr');
+  const [isLocationDetected, setIsLocationDetected] = useState(false);
   
   const [serviceType, setServiceType] = useState<ServiceType>('static');
   const [pagesCount, setPagesCount] = useState(5);
@@ -37,6 +38,44 @@ const PricingCalculator = () => {
     medium: 1.5,
     complex: 2
   };
+
+  // Auto-detect user's currency based on location
+  useEffect(() => {
+    if (!isLocationDetected) {
+      // Try to detect timezone first (fastest method)
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      
+      if (timezone.includes('America') || timezone.includes('US')) {
+        setCurrency('usd');
+        setIsLocationDetected(true);
+        return;
+      }
+      
+      if (timezone.includes('Asia/Kolkata') || timezone.includes('Asia/Calcutta')) {
+        setCurrency('inr');
+        setIsLocationDetected(true);
+        return;
+      }
+
+      // Fallback to IP-based detection using a free service
+      fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+          if (data.country_code === 'US') {
+            setCurrency('usd');
+          } else if (data.country_code === 'IN') {
+            setCurrency('inr');
+          } else if (data.continent_code === 'NA') {
+            setCurrency('usd');
+          }
+          setIsLocationDetected(true);
+        })
+        .catch(() => {
+          // If all detection fails, keep default INR
+          setIsLocationDetected(true);
+        });
+    }
+  }, [isLocationDetected]);
 
   useEffect(() => {
     // Update included pages and revisions when service type changes
@@ -84,13 +123,16 @@ const PricingCalculator = () => {
 
           {/* Currency */}
           <div className="mb-6">
-            <Label htmlFor="currency" className="text-sm font-medium mb-2 text-neutral-700">Currency</Label>
+            <Label htmlFor="currency" className="text-sm font-medium mb-2 text-neutral-700">
+              Currency {!isLocationDetected && <span className="text-xs text-neutral-500">(Auto-detecting...)</span>}
+            </Label>
             <Select 
               value={currency} 
               onValueChange={(value) => setCurrency(value as Currency)}
+              disabled={!isLocationDetected}
             >
               <SelectTrigger id="currency" className="w-full px-4 py-3 rounded-lg border border-neutral-300">
-                <SelectValue placeholder="Select currency" />
+                <SelectValue placeholder={isLocationDetected ? "Select currency" : "Detecting location..."} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="inr">Indian Rupees (₹)</SelectItem>
