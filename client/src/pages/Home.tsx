@@ -8,7 +8,7 @@ import PricingCalculator from '@/components/PricingCalculator';
 import ServiceCard from '@/components/ServiceCard';
 import PortfolioCard from '@/components/PortfolioCard';
 import TestimonialCard from '@/components/TestimonialCard';
-import BlogSectionPreview from '@/components/BlogSectionPreview';
+
 import AboutSection from '@/components/AboutSection';
 
 import { serviceDisplayData, getServiceWithPricing } from '@/lib/serviceData';
@@ -293,7 +293,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {['All', 'E-commerce', 'Business', 'Portfolio', 'Blog'].map((filter) => (
+            {['All', 'E-commerce', 'Business', 'Portfolio'].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
@@ -321,9 +321,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* Blog Preview Section */}
-      <BlogSectionPreview />
 
       {/* About Us Section */}
       <AboutSection />

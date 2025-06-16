@@ -40,14 +40,9 @@ This is a modern web development service platform built with React and optimized
 - External link integration to live projects
 - Responsive image galleries
 
-### 4. Blog System
-- Content-rich blog posts with category filtering
-- SEO-optimized post structure
-- Read time estimation
-- Tag-based categorization
-- Social sharing optimization
 
-### 5. WhatsApp Integration
+
+### 4. WhatsApp Integration
 - Direct messaging via WhatsApp Business API
 - Project inquiry and consultation routing
 - Automatic currency and project information sharing
@@ -108,3 +103,9 @@ Changelog:
   - Fixed unhandled promise rejections in currency detection
   - Added comprehensive error handling for IP geolocation APIs
   - Configured frontend-only routing with client-side fallbacks
+- June 16, 2025. Removed blog system completely:
+  - Deleted all blog-related components (BlogSectionPreview, BlogPreview)
+  - Removed blog pages (Blog.tsx, BlogPost.tsx) and data (blogData.ts)
+  - Updated navigation to remove blog links
+  - Cleaned up portfolio filters to remove blog category
+  - Updated routing to remove blog routes
