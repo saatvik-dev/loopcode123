@@ -64,7 +64,7 @@ const PricingCalculator = () => {
 
   const handleContactClick = () => {
     const whatsappNumber = "917093764745";
-    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ${currencySymbols[currency]}${formatPrice(totalPrice, currency)}. Can we discuss this further?`);
+    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ${formatPrice(totalPrice, currency)}. Can we discuss this further?`);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     window.open(whatsappUrl, '_blank');
@@ -182,11 +182,11 @@ const PricingCalculator = () => {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="client" id="hosting-client" className="radio-primary" />
-                <Label htmlFor="hosting-client" className="cursor-pointer">Client-provided ({currencySymbols[currency]}0)</Label>
+                <Label htmlFor="hosting-client" className="cursor-pointer">Client-provided ({formatPrice(0, currency)})</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="developer" id="hosting-developer" className="radio-primary" />
-                <Label htmlFor="hosting-developer" className="cursor-pointer">Developer-managed ({currencySymbols[currency]}{currency === 'inr' ? '2,000' : '24'})</Label>
+                <Label htmlFor="hosting-developer" className="cursor-pointer">Developer-managed ({formatPrice(currency === 'inr' ? 2000 : 24, currency)})</Label>
               </div>
             </RadioGroup>
           </div>
@@ -201,11 +201,11 @@ const PricingCalculator = () => {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="no" id="backend-no" className="radio-primary" />
-                <Label htmlFor="backend-no" className="cursor-pointer">Not required ({currencySymbols[currency]}0)</Label>
+                <Label htmlFor="backend-no" className="cursor-pointer">Not required ({formatPrice(0, currency)})</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="yes" id="backend-yes" className="radio-primary" />
-                <Label htmlFor="backend-yes" className="cursor-pointer">Required ({currencySymbols[currency]}{currency === 'inr' ? '5,000' : '60'})</Label>
+                <Label htmlFor="backend-yes" className="cursor-pointer">Required ({formatPrice(currency === 'inr' ? 5000 : 60, currency)})</Label>
               </div>
             </RadioGroup>
           </div>
@@ -254,7 +254,7 @@ const PricingCalculator = () => {
               transition={{ duration: 0.3 }}
             >
               <span className="text-neutral-700">Base Price</span>
-              <span className="font-medium text-neutral-900">{currencySymbols[currency]}{formatPrice(basePrice, currency)}</span>
+              <span className="font-medium text-neutral-900">{formatPrice(basePrice, currency)}</span>
             </motion.div>
 
             <motion.div 
@@ -265,7 +265,7 @@ const PricingCalculator = () => {
               transition={{ duration: 0.3 }}
             >
               <span className="text-neutral-700">Extra Pages</span>
-              <span className="font-medium text-neutral-900">{currencySymbols[currency]}{formatPrice(extraPagesPrice, currency)}</span>
+              <span className="font-medium text-neutral-900">{formatPrice(extraPagesPrice, currency)}</span>
             </motion.div>
 
             <motion.div 
@@ -276,7 +276,7 @@ const PricingCalculator = () => {
               transition={{ duration: 0.3 }}
             >
               <span className="text-neutral-700">Hosting & Domain Setup</span>
-              <span className="font-medium text-neutral-900">{currencySymbols[currency]}{formatPrice(hostingPrice, currency)}</span>
+              <span className="font-medium text-neutral-900">{formatPrice(hostingPrice, currency)}</span>
             </motion.div>
 
             <motion.div 
@@ -287,7 +287,7 @@ const PricingCalculator = () => {
               transition={{ duration: 0.3 }}
             >
               <span className="text-neutral-700">Backend & Database</span>
-              <span className="font-medium text-neutral-900">{currencySymbols[currency]}{formatPrice(backendPrice, currency)}</span>
+              <span className="font-medium text-neutral-900">{formatPrice(backendPrice, currency)}</span>
             </motion.div>
 
             <motion.div 
@@ -298,7 +298,7 @@ const PricingCalculator = () => {
               transition={{ duration: 0.3 }}
             >
               <span className="text-neutral-700">Extra Revisions</span>
-              <span className="font-medium text-neutral-900">{currencySymbols[currency]}{formatPrice(revisionsPrice, currency)}</span>
+              <span className="font-medium text-neutral-900">{formatPrice(revisionsPrice, currency)}</span>
             </motion.div>
           </div>
 
@@ -310,7 +310,7 @@ const PricingCalculator = () => {
             transition={{ duration: 0.3 }}
           >
             <span className="font-semibold text-lg text-neutral-900">Total Estimate</span>
-            <span className="font-bold text-2xl text-primary">{currencySymbols[currency]}{formatPrice(totalPrice, currency)}</span>
+            <span className="font-bold text-2xl text-primary">{formatPrice(totalPrice, currency)}</span>
           </motion.div>
 
           <div className="mt-8">
