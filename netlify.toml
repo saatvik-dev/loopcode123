@@ -1,6 +1,6 @@
 [build]
   publish = "dist/public"
-  command = "npm ci && npm run build"
+  command = "npm ci && NODE_ENV=production npx vite build --mode production"
 
 [build.environment]
   NODE_VERSION = "20"
