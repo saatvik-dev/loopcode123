@@ -637,9 +637,7 @@ const ClassyHero = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 1.1 }}
-                    >
-                        Professional web development services for Indian businesses. From static websites to custom applications, we deliver quality solutions at competitive prices.
-                    </motion.p>
+                    >Professional web development services for growing businesses. From static websites to custom applications, we deliver quality solutions at competitive prices.</motion.p>
 
                     <motion.div
                         className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center"
