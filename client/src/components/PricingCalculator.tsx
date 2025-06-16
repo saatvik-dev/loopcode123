@@ -42,38 +42,86 @@ const PricingCalculator = () => {
   // Auto-detect user's currency based on location
   useEffect(() => {
     if (!isLocationDetected) {
-      // Try to detect timezone first (fastest method)
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      console.log('Starting currency detection...');
       
-      if (timezone.includes('America') || timezone.includes('US')) {
-        setCurrency('usd');
-        setIsLocationDetected(true);
-        return;
-      }
-      
-      if (timezone.includes('Asia/Kolkata') || timezone.includes('Asia/Calcutta')) {
-        setCurrency('inr');
-        setIsLocationDetected(true);
-        return;
-      }
-
-      // Fallback to IP-based detection using a free service
-      fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-          if (data.country_code === 'US') {
+      // Try multiple detection methods
+      const detectCurrency = async () => {
+        try {
+          // Method 1: Timezone detection (works even with VPN sometimes)
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          console.log('Detected timezone:', timezone);
+          
+          if (timezone.includes('America') || timezone.includes('US') || timezone.includes('New_York') || timezone.includes('Los_Angeles') || timezone.includes('Chicago')) {
+            console.log('Setting USD based on timezone');
             setCurrency('usd');
-          } else if (data.country_code === 'IN') {
-            setCurrency('inr');
-          } else if (data.continent_code === 'NA') {
-            setCurrency('usd');
+            setIsLocationDetected(true);
+            return;
           }
+          
+          if (timezone.includes('Asia/Kolkata') || timezone.includes('Asia/Calcutta') || timezone.includes('India')) {
+            console.log('Setting INR based on timezone');
+            setCurrency('inr');
+            setIsLocationDetected(true);
+            return;
+          }
+
+          // Method 2: Try multiple IP detection services
+          const ipServices = [
+            'https://ipapi.co/json/',
+            'https://api.ipify.org?format=json', // Just gets IP
+            'https://httpbin.org/ip' // Another IP service
+          ];
+
+          for (const service of ipServices) {
+            try {
+              console.log('Trying IP service:', service);
+              const response = await fetch(service);
+              const data = await response.json();
+              console.log('IP service response:', data);
+              
+              if (data.country_code === 'US' || data.country === 'United States') {
+                console.log('Setting USD based on IP detection');
+                setCurrency('usd');
+                setIsLocationDetected(true);
+                return;
+              } else if (data.country_code === 'IN' || data.country === 'India') {
+                console.log('Setting INR based on IP detection');
+                setCurrency('inr');
+                setIsLocationDetected(true);
+                return;
+              } else if (data.continent_code === 'NA') {
+                console.log('Setting USD based on North America continent');
+                setCurrency('usd');
+                setIsLocationDetected(true);
+                return;
+              }
+            } catch (serviceError) {
+              console.log('IP service failed:', service, serviceError);
+              continue;
+            }
+          }
+
+          // Method 3: Browser language as last resort
+          const language = navigator.language || navigator.languages?.[0];
+          console.log('Browser language:', language);
+          
+          if (language && language.startsWith('en-US')) {
+            console.log('Setting USD based on browser language');
+            setCurrency('usd');
+          } else {
+            console.log('Keeping default INR');
+            setCurrency('inr');
+          }
+          
+        } catch (error) {
+          console.log('All detection methods failed:', error);
+          setCurrency('inr'); // Keep default
+        } finally {
           setIsLocationDetected(true);
-        })
-        .catch(() => {
-          // If all detection fails, keep default INR
-          setIsLocationDetected(true);
-        });
+        }
+      };
+
+      detectCurrency();
     }
   }, [isLocationDetected]);
 
@@ -124,21 +172,27 @@ const PricingCalculator = () => {
           {/* Currency */}
           <div className="mb-6">
             <Label htmlFor="currency" className="text-sm font-medium mb-2 text-neutral-700">
-              Currency {!isLocationDetected && <span className="text-xs text-neutral-500">(Auto-detecting...)</span>}
+              Currency 
+              {!isLocationDetected && <span className="text-xs text-neutral-500">(Auto-detecting...)</span>}
+              {isLocationDetected && <span className="text-xs text-green-600">(Auto-detected)</span>}
             </Label>
             <Select 
               value={currency} 
               onValueChange={(value) => setCurrency(value as Currency)}
-              disabled={!isLocationDetected}
             >
               <SelectTrigger id="currency" className="w-full px-4 py-3 rounded-lg border border-neutral-300">
-                <SelectValue placeholder={isLocationDetected ? "Select currency" : "Detecting location..."} />
+                <SelectValue placeholder="Select currency" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="inr">Indian Rupees (₹)</SelectItem>
-                <SelectItem value="usd">US Dollars ($)</SelectItem>
+                <SelectItem value="inr">🇮🇳 Indian Rupees (₹)</SelectItem>
+                <SelectItem value="usd">🇺🇸 US Dollars ($)</SelectItem>
               </SelectContent>
             </Select>
+            {!isLocationDetected && (
+              <p className="text-xs text-neutral-500 mt-1">
+                Using VPN? Please select your preferred currency manually.
+              </p>
+            )}
           </div>
 
           {/* Service Type */}
