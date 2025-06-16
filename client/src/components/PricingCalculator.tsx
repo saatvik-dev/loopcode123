@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { services, ServiceType, Currency, formatPrice, currencySymbols } from '@/lib/pricingData';
+import { services, ServiceType, Currency, ServicePricing, formatPrice, currencySymbols } from '@/lib/pricingData';
 
 const PricingCalculator = () => {
   // Currency state
@@ -144,7 +144,7 @@ const PricingCalculator = () => {
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
-                {services[serviceType][currency].pages} included
+                {(services[serviceType][currency] as ServicePricing).pages} included
               </span>
             </div>
           </div>
@@ -231,7 +231,7 @@ const PricingCalculator = () => {
                 className="w-full px-4 py-3 rounded-lg border border-neutral-300"
               />
               <span className="ml-2 text-sm text-neutral-500">
-                {services[serviceType][currency].revisions} included
+                {(services[serviceType][currency] as ServicePricing).revisions} included
               </span>
             </div>
           </div>
