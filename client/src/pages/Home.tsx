@@ -170,9 +170,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Pricing Plans Section */}
-      <section className="py-16 md:py-24 bg-neutral-900">
+      <section className="py-16 md:py-24 bg-[#ffffff] text-[#0c0a09]">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <motion.h2 
@@ -238,7 +237,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* Interactive Pricing Calculator Section */}
       <section id="calculator" className="py-16 md:py-24 bg-slate-50">
         <div className="container mx-auto px-4 md:px-8">
@@ -263,7 +261,6 @@ const Home = () => {
           <PricingCalculator />
         </div>
       </section>
-
       {/* Portfolio Section */}
       <section id="portfolio" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -321,10 +318,8 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
       {/* About Us Section */}
       <AboutSection />
-
       {/* Testimonials Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -359,7 +354,6 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-
       {/* Terms & Conditions Section */}
       <section id="terms" className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
