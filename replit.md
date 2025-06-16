@@ -131,3 +131,9 @@ Preferred communication style: Simple, everyday language.
 
 Changelog:
 - June 16, 2025. Initial setup
+- June 16, 2025. Enhanced pricing calculator with dual currency support:
+  - Added manual currency switcher with INR/USD toggle buttons
+  - Implemented "Show both currencies" option for simultaneous price display
+  - Enhanced location detection with debug panel and re-test functionality
+  - Improved WhatsApp integration with detailed project information
+  - Added comprehensive detection debugging for VPN scenarios

@@ -16,6 +16,12 @@ const PricingCalculator = () => {
   const [currency, setCurrency] = useState<Currency>('inr');
   const [isLocationDetected, setIsLocationDetected] = useState(false);
   const [showBothCurrencies, setShowBothCurrencies] = useState(true);
+  const [detectionDetails, setDetectionDetails] = useState<{
+    timezone?: string;
+    detectionMethod?: string;
+    ipData?: any;
+    error?: string;
+  }>({});
   
   const [serviceType, setServiceType] = useState<ServiceType>('static');
   const [pagesCount, setPagesCount] = useState(5);
@@ -79,9 +85,12 @@ const PricingCalculator = () => {
           const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
           console.log('Detected timezone:', timezone);
           
+          setDetectionDetails(prev => ({ ...prev, timezone }));
+          
           if (timezone.includes('America') || timezone.includes('US') || timezone.includes('New_York') || timezone.includes('Los_Angeles') || timezone.includes('Chicago')) {
             console.log('Setting USD based on timezone');
             setCurrency('usd');
+            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Timezone (US)' }));
             setIsLocationDetected(true);
             return;
           }
@@ -89,6 +98,7 @@ const PricingCalculator = () => {
           if (timezone.includes('Asia/Kolkata') || timezone.includes('Asia/Calcutta') || timezone.includes('India')) {
             console.log('Setting INR based on timezone');
             setCurrency('inr');
+            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Timezone (India)' }));
             setIsLocationDetected(true);
             return;
           }
@@ -107,24 +117,39 @@ const PricingCalculator = () => {
               const data = await response.json();
               console.log('IP service response:', data);
               
+              setDetectionDetails(prev => ({ ...prev, ipData: data }));
+              
               if (data.country_code === 'US' || data.country === 'United States') {
                 console.log('Setting USD based on IP detection');
                 setCurrency('usd');
+                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Location (US)' }));
                 setIsLocationDetected(true);
                 return;
               } else if (data.country_code === 'IN' || data.country === 'India') {
                 console.log('Setting INR based on IP detection');
                 setCurrency('inr');
+                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Location (India)' }));
                 setIsLocationDetected(true);
                 return;
               } else if (data.continent_code === 'NA') {
                 console.log('Setting USD based on North America continent');
                 setCurrency('usd');
+                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Continent (NA)' }));
                 setIsLocationDetected(true);
                 return;
+              } else {
+                console.log('Unknown location detected:', data);
+                setDetectionDetails(prev => ({ 
+                  ...prev, 
+                  detectionMethod: `Unknown location: ${data.country || data.country_code || 'N/A'}` 
+                }));
               }
             } catch (serviceError) {
               console.log('IP service failed:', service, serviceError);
+              setDetectionDetails(prev => ({ 
+                ...prev, 
+                error: `IP service failed: ${serviceError instanceof Error ? serviceError.message : 'Unknown error'}` 
+              }));
               continue;
             }
           }
@@ -136,13 +161,20 @@ const PricingCalculator = () => {
           if (language && language.startsWith('en-US')) {
             console.log('Setting USD based on browser language');
             setCurrency('usd');
+            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Browser Language (en-US)' }));
           } else {
             console.log('Keeping default INR');
             setCurrency('inr');
+            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Default (INR)' }));
           }
           
         } catch (error) {
           console.log('All detection methods failed:', error);
+          setDetectionDetails(prev => ({ 
+            ...prev, 
+            error: error instanceof Error ? error.message : 'Unknown error', 
+            detectionMethod: 'Detection Failed' 
+          }));
           setCurrency('inr'); // Keep default
         } finally {
           setIsLocationDetected(true);
@@ -267,6 +299,56 @@ const PricingCalculator = () => {
                 Using VPN? Currency auto-detection may be inaccurate.
               </p>
             )}
+            
+            {/* Debug Information Panel */}
+            <div className="mt-3 p-3 bg-neutral-50 rounded-lg border text-xs space-y-2">
+              <div className="font-medium text-neutral-700">Detection Details:</div>
+              <div><span className="font-medium">Timezone:</span> {detectionDetails.timezone || 'Not detected'}</div>
+              <div><span className="font-medium">Method:</span> {detectionDetails.detectionMethod || 'Detecting...'}</div>
+              {detectionDetails.ipData && (
+                <div>
+                  <span className="font-medium">IP Data:</span> 
+                  {detectionDetails.ipData.country && ` ${detectionDetails.ipData.country}`}
+                  {detectionDetails.ipData.country_code && ` (${detectionDetails.ipData.country_code})`}
+                  {detectionDetails.ipData.city && ` - ${detectionDetails.ipData.city}`}
+                </div>
+              )}
+              {detectionDetails.error && (
+                <div className="text-red-600">
+                  <span className="font-medium">Error:</span> {detectionDetails.error}
+                </div>
+              )}
+              <div className="flex gap-2 mt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setIsLocationDetected(false);
+                    setDetectionDetails({});
+                  }}
+                  className="text-xs px-2 py-1"
+                >
+                  Re-test Detection
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(JSON.stringify(detectionDetails, null, 2));
+                    toast({
+                      title: "Debug info copied",
+                      description: "Detection details copied to clipboard",
+                      duration: 2000,
+                    });
+                  }}
+                  className="text-xs px-2 py-1"
+                >
+                  Copy Debug Info
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Service Type */}
