@@ -109,3 +109,12 @@ Changelog:
   - Updated navigation to remove blog links
   - Cleaned up portfolio filters to remove blog category
   - Updated routing to remove blog routes
+- June 16, 2025. Prepared application for Netlify deployment:
+  - Removed portfolio filter buttons as requested
+  - Fixed unhandled promise rejections in currency detection
+  - Created netlify.toml configuration file with proper build settings
+  - Added _redirects file for client-side routing support
+  - Created build-netlify.sh script for simplified deployment
+  - Added placeholder SVG images for missing assets
+  - Configured optimized caching headers for static assets
+  - Removed unused filter state variables
