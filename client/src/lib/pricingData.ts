@@ -25,19 +25,19 @@ export interface CurrencyPricing {
 export const services: Record<ServiceType, CurrencyPricing> = {
   static: { 
     inr: { base: 7000, pages: 5, extraPage: 1000, revisions: 2, extraRevision: 1000 },
-    usd: { base: 99, pages: 5, extraPage: 15, revisions: 2, extraRevision: 15 }
+    usd: { base: 149, pages: 5, extraPage: 23, revisions: 2, extraRevision: 23 }
   },
   dynamic: { 
     inr: { base: 12000, pages: 5, extraPage: 2000, revisions: 3, extraRevision: 1500 },
-    usd: { base: 199, pages: 5, extraPage: 30, revisions: 3, extraRevision: 25 }
+    usd: { base: 299, pages: 5, extraPage: 45, revisions: 3, extraRevision: 38 }
   },
   business: { 
     inr: { base: 15000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
-    usd: { base: 299, pages: 7, extraPage: 45, revisions: 3, extraRevision: 35 }
+    usd: { base: 449, pages: 7, extraPage: 68, revisions: 3, extraRevision: 53 }
   },
   portfolio: { 
     inr: { base: 6000, pages: 4, extraPage: 1000, revisions: 2, extraRevision: 1000 },
-    usd: { base: 79, pages: 4, extraPage: 15, revisions: 2, extraRevision: 15 }
+    usd: { base: 119, pages: 4, extraPage: 23, revisions: 2, extraRevision: 23 }
   },
   landing: { 
     inr: { base: 4000, pages: 1, extraPage: 1000, revisions: 1, extraRevision: 1000 },
@@ -45,19 +45,19 @@ export const services: Record<ServiceType, CurrencyPricing> = {
   },
   blog: { 
     inr: { base: 10000, pages: 5, extraPage: 1500, revisions: 3, extraRevision: 1500 },
-    usd: { base: 159, pages: 5, extraPage: 25, revisions: 3, extraRevision: 25 }
+    usd: { base: 239, pages: 5, extraPage: 38, revisions: 3, extraRevision: 38 }
   },
   'ecommerce-basic': { 
     inr: { base: 20000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
-    usd: { base: 399, pages: 7, extraPage: 50, revisions: 3, extraRevision: 35 }
+    usd: { base: 599, pages: 7, extraPage: 75, revisions: 3, extraRevision: 53 }
   },
   'ecommerce-payments': { 
     inr: { base: 30000, pages: 10, extraPage: 4000, revisions: 4, extraRevision: 2500 },
-    usd: { base: 599, pages: 10, extraPage: 75, revisions: 4, extraRevision: 45 }
+    usd: { base: 899, pages: 10, extraPage: 113, revisions: 4, extraRevision: 68 }
   },
   custom: { 
     inr: { base: 40000, pages: 10, extraPage: 5000, revisions: 4, extraRevision: 3000 },
-    usd: { base: 799, pages: 10, extraPage: 100, revisions: 4, extraRevision: 65 }
+    usd: { base: 1199, pages: 10, extraPage: 150, revisions: 4, extraRevision: 98 }
   }
 };
 
