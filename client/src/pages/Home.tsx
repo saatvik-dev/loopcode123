@@ -17,7 +17,6 @@ import { testimonials } from '@/lib/testimonialData';
 import { Currency, formatPrice, services as pricingServices } from '@/lib/pricingData';
 
 const Home = () => {
-  const [selectedFilter, setSelectedFilter] = useState('All');
   const [currency, setCurrency] = useState<Currency>('inr');
   const [isDetecting, setIsDetecting] = useState(true);
 
@@ -100,27 +99,21 @@ const Home = () => {
     // Use a safer approach to handle the async function
     let isMounted = true;
     
-    detectCurrency()
-      .then(() => {
-        // Success case is handled in the function
-      })
-      .catch((error) => {
-        // Final fallback if promise is rejected
-        if (isMounted) {
-          setCurrency('inr');
-          setIsDetecting(false);
-        }
-      });
+    detectCurrency().catch((error) => {
+      // Final fallback if promise is rejected
+      if (isMounted) {
+        setCurrency('inr');
+        setIsDetecting(false);
+      }
+    });
 
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // Filter portfolio projects
-  const filteredProjects = selectedFilter === 'All' 
-    ? portfolioProjects 
-    : portfolioProjects.filter(project => project.category === selectedFilter);
+  // Show all portfolio projects
+  const filteredProjects = portfolioProjects;
 
   return (
     <div className="font-sans bg-background text-foreground overflow-x-hidden">
