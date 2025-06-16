@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,10 +18,10 @@ import TestimonialCard from '@/components/TestimonialCard';
 import BlogSectionPreview from '@/components/BlogSectionPreview';
 import AboutSection from '@/components/AboutSection';
 
-import { services } from '@/lib/serviceData';
+import { serviceDisplayData, getServiceWithPricing } from '@/lib/serviceData';
 import { portfolioProjects } from '@/lib/portfolioData';
 import { testimonials } from '@/lib/testimonialData';
-import { pricingTableData } from '@/lib/pricingData';
+import { Currency, formatPrice, services as pricingServices } from '@/lib/pricingData';
 
 import {
   Form,
@@ -46,7 +46,61 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const Home = () => {
   const [selectedFilter, setSelectedFilter] = useState('All');
+  const [currency, setCurrency] = useState<Currency>('inr');
+  const [isDetecting, setIsDetecting] = useState(true);
   const { toast } = useToast();
+
+  // Auto-detect user's currency based on IP location
+  useEffect(() => {
+    const detectCurrency = async () => {
+      try {
+        const ipServices = [
+          'https://ipapi.co/json/',
+          'https://ipinfo.io/json',
+          'https://freegeoip.app/json/',
+          'https://api.db-ip.com/v2/free/self'
+        ];
+
+        for (const service of ipServices) {
+          try {
+            const response = await fetch(service);
+            const data = await response.json();
+            
+            const countryCode = data.country_code || data.countryCode || data.country_code2;
+            const country = data.country || data.country_name || data.countryName;
+            
+            if (countryCode === 'US' || country === 'United States' || country === 'USA') {
+              setCurrency('usd');
+              setIsDetecting(false);
+              return;
+            }
+            
+            if (countryCode === 'IN' || country === 'India') {
+              setCurrency('inr');
+              setIsDetecting(false);
+              return;
+            }
+            
+            if (countryCode) {
+              setCurrency('usd');
+              setIsDetecting(false);
+              return;
+            }
+          } catch (serviceError) {
+            continue;
+          }
+        }
+
+        setCurrency('inr');
+        setIsDetecting(false);
+      } catch (error) {
+        setCurrency('inr');
+        setIsDetecting(false);
+      }
+    };
+
+    detectCurrency();
+  }, []);
 
   // Contact form setup
   const form = useForm<ContactFormValues>({

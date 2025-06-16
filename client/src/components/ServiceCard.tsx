@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Currency, formatPrice } from '@/lib/pricingData';
 
 export interface ServiceCardProps {
   icon: string;
@@ -6,10 +7,11 @@ export interface ServiceCardProps {
   description: string;
   price: number;
   pages: number;
+  currency: Currency;
   delay?: number;
 }
 
-const ServiceCard = ({ icon, title, description, price, pages, delay = 0 }: ServiceCardProps) => {
+const ServiceCard = ({ icon, title, description, price, pages, currency, delay = 0 }: ServiceCardProps) => {
   return (
     <motion.div 
       className="bg-neutral-100 rounded-xl p-6 hover:shadow-lg transition-shadow group"
@@ -24,7 +26,7 @@ const ServiceCard = ({ icon, title, description, price, pages, delay = 0 }: Serv
       <h3 className="text-xl font-semibold mb-3 text-neutral-900">{title}</h3>
       <p className="mb-4 text-neutral-700">{description}</p>
       <div className="flex justify-between items-center text-sm">
-        <span className="font-medium text-neutral-900">From ₹{price.toLocaleString()}</span>
+        <span className="font-medium text-neutral-900">From {formatPrice(price, currency)}</span>
         <span className="text-neutral-500">{pages} pages included</span>
       </div>
     </motion.div>
