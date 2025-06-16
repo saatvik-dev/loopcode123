@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern web development service platform built with React and Express.js. It serves as a professional showcase for web development services, featuring an interactive pricing calculator, portfolio showcase, blog system, and contact form functionality. The platform is designed to attract and convert potential clients for web development services in the Indian market.
+This is a modern web development service platform built with React and optimized for frontend-only deployment. It serves as a professional showcase for web development services, featuring an interactive pricing calculator, portfolio showcase, blog system, and terms & conditions. The platform is designed to attract and convert potential clients for web development services with automatic currency detection for the Indian and US markets.
 
 ## System Architecture
 
@@ -47,20 +47,19 @@ This is a modern web development service platform built with React and Express.j
 - Tag-based categorization
 - Social sharing optimization
 
-### 5. Contact Form System
-- Zod-validated contact form submissions
-- Netlify Forms for serverless form handling
-- Real-time form validation
-- Toast notifications for user feedback
+### 5. WhatsApp Integration
+- Direct messaging via WhatsApp Business API
+- Project inquiry and consultation routing
+- Automatic currency and project information sharing
 
 ## Data Flow
 
 ### Frontend Data Flow
-1. User interactions trigger React Hook Form handlers
-2. Form data is validated using Zod schemas
-3. Contact forms submit directly to Netlify Forms
-4. Toast notifications provide user feedback
-5. Framer Motion handles page transitions and animations
+1. User interactions trigger component state updates
+2. Currency detection automatically sets pricing display
+3. WhatsApp integration handles project inquiries
+4. Pricing calculator provides real-time cost estimates
+5. Framer Motion handles smooth page transitions and animations
 
 ## External Dependencies
 
