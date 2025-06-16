@@ -10,17 +10,15 @@ This is a modern web development service platform built with React and Express.j
 - **Framework**: React 18 with TypeScript
 - **Styling**: Tailwind CSS with shadcn/ui component library
 - **Routing**: Wouter (lightweight React router)
-- **State Management**: TanStack Query for server state
 - **Animation**: Framer Motion for smooth animations
-- **Form Handling**: React Hook Form with Zod validation
+- **Form Handling**: React Hook Form with Zod validation, Netlify Forms
 - **Build Tool**: Vite for fast development and optimized builds
 
-### Backend Architecture
-- **Runtime**: Node.js with Express.js
-- **Database**: PostgreSQL with Drizzle ORM
-- **Session Management**: Connect-pg-simple for PostgreSQL sessions
-- **API Design**: RESTful endpoints with proper error handling
-- **Validation**: Zod schemas for request/response validation
+### Deployment Architecture
+- **Hosting**: Netlify (frontend-only)
+- **Forms**: Netlify Forms for contact form handling
+- **Asset Optimization**: Automatic bundling and minification via Vite
+- **Routing**: Client-side routing with fallback to index.html
 
 ## Key Components
 
@@ -51,7 +49,7 @@ This is a modern web development service platform built with React and Express.j
 
 ### 5. Contact Form System
 - Zod-validated contact form submissions
-- Database storage of inquiries
+- Netlify Forms for serverless form handling
 - Real-time form validation
 - Toast notifications for user feedback
 
