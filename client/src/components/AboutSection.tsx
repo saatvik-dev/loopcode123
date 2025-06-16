@@ -76,7 +76,7 @@ const AboutSection = () => {
             title="Frontend Developer & Designer"
             bio="Specializing in creating beautiful, responsive web interfaces with a focus on user experience and performance optimization."
             experience="Former frontend developer for multiple tech startups. Expert in React, TypeScript, and modern CSS frameworks."
-            image={saiImage}
+            image="https://ik.imagekit.io/4ep9dg1krg/1746890035651.jpeg?updatedAt=1750096291923"
             delay={0.2}
           />
           
@@ -85,7 +85,7 @@ const AboutSection = () => {
             title="Full-Stack Engineer"
             bio="Passionate about building scalable web applications from the ground up with expertise in both frontend and backend technologies."
             experience="Lead engineer on several successful web projects. Skilled in Node.js, database design, and API development."
-            image={saatvikImage}
+            image="https://ik.imagekit.io/4ep9dg1krg/WhatsApp%20Image%202025-05-26%20at%2013.19.48.jpeg?updatedAt=1750096348018"
             delay={0.4}
           />
         </div>
