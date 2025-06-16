@@ -116,13 +116,7 @@ const Home = () => {
   // Contact form submission
   const contactMutation = useMutation({
     mutationFn: (data: ContactFormValues) => 
-      apiRequest('/api/contact', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }),
+      apiRequest('POST', '/api/contact', data),
     onSuccess: () => {
       toast({
         title: "Message sent successfully!",
@@ -189,13 +183,16 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            {services.map((service, index) => (
-              <ServiceCard 
-                key={index} 
-                {...service} 
-                delay={index * 0.1}
-              />
-            ))}
+            {serviceDisplayData.map((service, index) => {
+              const serviceWithPricing = getServiceWithPricing(service, currency);
+              return (
+                <ServiceCard 
+                  key={index} 
+                  {...serviceWithPricing} 
+                  delay={index * 0.1}
+                />
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -240,7 +237,7 @@ const Home = () => {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 <PricingCard
                   tier="Basic"
-                  price="₹15,000"
+                  price={formatPrice(pricingServices.static[currency].base, currency)}
                   bestFor="Best for small businesses"
                   CTA="Get started"
                   benefits={[
@@ -254,7 +251,7 @@ const Home = () => {
                 />
                 <PricingCard
                   tier="Pro"
-                  price="₹35,000"
+                  price={formatPrice(pricingServices.business[currency].base, currency)}
                   bestFor="Best for growing businesses"
                   CTA="Most popular"
                   benefits={[
