@@ -55,10 +55,34 @@ const Home = () => {
           'https://api.db-ip.com/v2/free/self'
         ];
 
+        // Helper function to fetch with timeout and proper error handling
+        const fetchWithTimeout = async (url: string, timeout = 5000) => {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), timeout);
+          
+          try {
+            const response = await fetch(url, {
+              signal: controller.signal,
+              headers: {
+                'Accept': 'application/json',
+              }
+            });
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+            
+            return await response.json();
+          } catch (error) {
+            clearTimeout(timeoutId);
+            throw error;
+          }
+        };
+
         for (const service of ipServices) {
           try {
-            const response = await fetch(service);
-            const data = await response.json();
+            const data = await fetchWithTimeout(service);
             
             const countryCode = data.country_code || data.countryCode || data.country_code2;
             const country = data.country || data.country_name || data.countryName;
@@ -81,19 +105,39 @@ const Home = () => {
               return;
             }
           } catch (serviceError) {
+            // Silently continue to next service
             continue;
           }
         }
 
+        // Default to INR if no service worked
         setCurrency('inr');
         setIsDetecting(false);
       } catch (error) {
+        // Fallback to INR on any error
         setCurrency('inr');
         setIsDetecting(false);
       }
     };
 
-    detectCurrency();
+    // Use a safer approach to handle the async function
+    let isMounted = true;
+    
+    detectCurrency()
+      .then(() => {
+        // Success case is handled in the function
+      })
+      .catch((error) => {
+        // Final fallback if promise is rejected
+        if (isMounted) {
+          setCurrency('inr');
+          setIsDetecting(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Contact form setup
