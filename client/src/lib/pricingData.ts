@@ -17,17 +17,51 @@ export interface ServicePricing {
   extraRevision: number;
 }
 
-export const services: Record<ServiceType, ServicePricing> = {
-  static: { base: 7000, pages: 5, extraPage: 1000, revisions: 2, extraRevision: 1000 },
-  dynamic: { base: 12000, pages: 5, extraPage: 2000, revisions: 3, extraRevision: 1500 },
-  business: { base: 15000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
-  portfolio: { base: 6000, pages: 4, extraPage: 1000, revisions: 2, extraRevision: 1000 },
-  landing: { base: 4000, pages: 1, extraPage: 1000, revisions: 1, extraRevision: 1000 },
-  blog: { base: 10000, pages: 5, extraPage: 1500, revisions: 3, extraRevision: 1500 },
-  'ecommerce-basic': { base: 20000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
-  'ecommerce-payments': { base: 30000, pages: 10, extraPage: 4000, revisions: 4, extraRevision: 2500 },
-  custom: { base: 40000, pages: 10, extraPage: 5000, revisions: 4, extraRevision: 3000 }
+export interface CurrencyPricing {
+  inr: ServicePricing;
+  usd: ServicePricing;
+}
+
+export const services: Record<ServiceType, CurrencyPricing> = {
+  static: { 
+    inr: { base: 7000, pages: 5, extraPage: 1000, revisions: 2, extraRevision: 1000 },
+    usd: { base: 85, pages: 5, extraPage: 12, revisions: 2, extraRevision: 12 }
+  },
+  dynamic: { 
+    inr: { base: 12000, pages: 5, extraPage: 2000, revisions: 3, extraRevision: 1500 },
+    usd: { base: 145, pages: 5, extraPage: 24, revisions: 3, extraRevision: 18 }
+  },
+  business: { 
+    inr: { base: 15000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
+    usd: { base: 180, pages: 7, extraPage: 36, revisions: 3, extraRevision: 24 }
+  },
+  portfolio: { 
+    inr: { base: 6000, pages: 4, extraPage: 1000, revisions: 2, extraRevision: 1000 },
+    usd: { base: 72, pages: 4, extraPage: 12, revisions: 2, extraRevision: 12 }
+  },
+  landing: { 
+    inr: { base: 4000, pages: 1, extraPage: 1000, revisions: 1, extraRevision: 1000 },
+    usd: { base: 48, pages: 1, extraPage: 12, revisions: 1, extraRevision: 12 }
+  },
+  blog: { 
+    inr: { base: 10000, pages: 5, extraPage: 1500, revisions: 3, extraRevision: 1500 },
+    usd: { base: 120, pages: 5, extraPage: 18, revisions: 3, extraRevision: 18 }
+  },
+  'ecommerce-basic': { 
+    inr: { base: 20000, pages: 7, extraPage: 3000, revisions: 3, extraRevision: 2000 },
+    usd: { base: 240, pages: 7, extraPage: 36, revisions: 3, extraRevision: 24 }
+  },
+  'ecommerce-payments': { 
+    inr: { base: 30000, pages: 10, extraPage: 4000, revisions: 4, extraRevision: 2500 },
+    usd: { base: 360, pages: 10, extraPage: 48, revisions: 4, extraRevision: 30 }
+  },
+  custom: { 
+    inr: { base: 40000, pages: 10, extraPage: 5000, revisions: 4, extraRevision: 3000 },
+    usd: { base: 480, pages: 10, extraPage: 60, revisions: 4, extraRevision: 36 }
+  }
 };
+
+export type Currency = 'inr' | 'usd';
 
 export interface PricingTableItem {
   serviceType: string;
@@ -39,86 +73,98 @@ export interface PricingTableItem {
   extraRevisionCharge: string;
 }
 
-export const pricingTableData: PricingTableItem[] = [
+export const currencySymbols: Record<Currency, string> = {
+  inr: '₹',
+  usd: '$'
+};
+
+export const formatPrice = (price: number, currency: Currency): string => {
+  const symbol = currencySymbols[currency];
+  return currency === 'inr' 
+    ? `${symbol}${price.toLocaleString('en-IN')}` 
+    : `${symbol}${price.toLocaleString('en-US')}`;
+};
+
+export const getPricingTableData = (currency: Currency): PricingTableItem[] => [
   {
     serviceType: 'Static Website',
-    basePrice: '7,000',
+    basePrice: formatPrice(services.static[currency].base, currency),
     pagesIncluded: '5',
-    extraPageCharge: '1,000',
+    extraPageCharge: formatPrice(services.static[currency].extraPage, currency),
     deliveryTime: '7 days',
     includedRevisions: '2',
-    extraRevisionCharge: '1,000'
+    extraRevisionCharge: formatPrice(services.static[currency].extraRevision, currency)
   },
   {
     serviceType: 'Dynamic Website',
-    basePrice: '12,000',
+    basePrice: formatPrice(services.dynamic[currency].base, currency),
     pagesIncluded: '5',
-    extraPageCharge: '2,000',
+    extraPageCharge: formatPrice(services.dynamic[currency].extraPage, currency),
     deliveryTime: '14 days',
     includedRevisions: '3',
-    extraRevisionCharge: '1,500'
+    extraRevisionCharge: formatPrice(services.dynamic[currency].extraRevision, currency)
   },
   {
     serviceType: 'Business Website',
-    basePrice: '15,000',
+    basePrice: formatPrice(services.business[currency].base, currency),
     pagesIncluded: '7',
-    extraPageCharge: '3,000',
+    extraPageCharge: formatPrice(services.business[currency].extraPage, currency),
     deliveryTime: '15 days',
     includedRevisions: '3',
-    extraRevisionCharge: '2,000'
+    extraRevisionCharge: formatPrice(services.business[currency].extraRevision, currency)
   },
   {
     serviceType: 'Portfolio Website',
-    basePrice: '6,000',
+    basePrice: formatPrice(services.portfolio[currency].base, currency),
     pagesIncluded: '4',
-    extraPageCharge: '1,000',
+    extraPageCharge: formatPrice(services.portfolio[currency].extraPage, currency),
     deliveryTime: '7 days',
     includedRevisions: '2',
-    extraRevisionCharge: '1,000'
+    extraRevisionCharge: formatPrice(services.portfolio[currency].extraRevision, currency)
   },
   {
     serviceType: 'Landing Page',
-    basePrice: '4,000',
+    basePrice: formatPrice(services.landing[currency].base, currency),
     pagesIncluded: '1',
-    extraPageCharge: '1,000',
+    extraPageCharge: formatPrice(services.landing[currency].extraPage, currency),
     deliveryTime: '3 days',
     includedRevisions: '1',
-    extraRevisionCharge: '1,000'
+    extraRevisionCharge: formatPrice(services.landing[currency].extraRevision, currency)
   },
   {
     serviceType: 'Blog Website',
-    basePrice: '10,000',
+    basePrice: formatPrice(services.blog[currency].base, currency),
     pagesIncluded: '5',
-    extraPageCharge: '1,500',
+    extraPageCharge: formatPrice(services.blog[currency].extraPage, currency),
     deliveryTime: '14 days',
     includedRevisions: '3',
-    extraRevisionCharge: '1,500'
+    extraRevisionCharge: formatPrice(services.blog[currency].extraRevision, currency)
   },
   {
     serviceType: 'E-commerce Basic',
-    basePrice: '20,000',
+    basePrice: formatPrice(services['ecommerce-basic'][currency].base, currency),
     pagesIncluded: '7',
-    extraPageCharge: '3,000',
+    extraPageCharge: formatPrice(services['ecommerce-basic'][currency].extraPage, currency),
     deliveryTime: '21 days',
     includedRevisions: '3',
-    extraRevisionCharge: '2,000'
+    extraRevisionCharge: formatPrice(services['ecommerce-basic'][currency].extraRevision, currency)
   },
   {
     serviceType: 'E-commerce with Payments',
-    basePrice: '30,000',
+    basePrice: formatPrice(services['ecommerce-payments'][currency].base, currency),
     pagesIncluded: '10',
-    extraPageCharge: '4,000',
+    extraPageCharge: formatPrice(services['ecommerce-payments'][currency].extraPage, currency),
     deliveryTime: '30 days',
     includedRevisions: '4',
-    extraRevisionCharge: '2,500'
+    extraRevisionCharge: formatPrice(services['ecommerce-payments'][currency].extraRevision, currency)
   },
   {
     serviceType: 'Custom Web Application',
-    basePrice: '40,000+',
+    basePrice: `${formatPrice(services.custom[currency].base, currency)}+`,
     pagesIncluded: 'Varies',
-    extraPageCharge: '5,000',
+    extraPageCharge: formatPrice(services.custom[currency].extraPage, currency),
     deliveryTime: '30+ days',
     includedRevisions: '4',
-    extraRevisionCharge: '3,000'
+    extraRevisionCharge: formatPrice(services.custom[currency].extraRevision, currency)
   }
 ];
