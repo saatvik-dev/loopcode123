@@ -78,36 +78,21 @@ const PricingCalculator = () => {
     if (!isLocationDetected) {
       console.log('Starting currency detection...');
       
-      // Try multiple detection methods
+      // IP-based detection only
       const detectCurrency = async () => {
         try {
-          // Method 1: Timezone detection (works even with VPN sometimes)
+          // Get timezone for debug info only (not for detection)
           const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          console.log('Detected timezone:', timezone);
-          
+          console.log('User timezone (debug only):', timezone);
           setDetectionDetails(prev => ({ ...prev, timezone }));
-          
-          if (timezone.includes('America') || timezone.includes('US') || timezone.includes('New_York') || timezone.includes('Los_Angeles') || timezone.includes('Chicago')) {
-            console.log('Setting USD based on timezone');
-            setCurrency('usd');
-            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Timezone (US)' }));
-            setIsLocationDetected(true);
-            return;
-          }
-          
-          if (timezone.includes('Asia/Kolkata') || timezone.includes('Asia/Calcutta') || timezone.includes('India')) {
-            console.log('Setting INR based on timezone');
-            setCurrency('inr');
-            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Timezone (India)' }));
-            setIsLocationDetected(true);
-            return;
-          }
 
-          // Method 2: Try multiple IP detection services
+          // Try multiple IP detection services
           const ipServices = [
             'https://ipapi.co/json/',
-            'https://api.ipify.org?format=json', // Just gets IP
-            'https://httpbin.org/ip' // Another IP service
+            'https://api.ipgeolocation.io/ipgeo?apiKey=',
+            'https://freegeoip.app/json/',
+            'https://ipinfo.io/json',
+            'https://api.db-ip.com/v2/free/self'
           ];
 
           for (const service of ipServices) {
@@ -119,31 +104,41 @@ const PricingCalculator = () => {
               
               setDetectionDetails(prev => ({ ...prev, ipData: data }));
               
-              if (data.country_code === 'US' || data.country === 'United States') {
+              // Normalize country detection across different API response formats
+              const countryCode = data.country_code || data.countryCode || data.country_code2;
+              const country = data.country || data.country_name || data.countryName;
+              const continent = data.continent_code || data.continentCode;
+              
+              console.log('Detected country info:', { countryCode, country, continent });
+              
+              // Check for US/USD
+              if (countryCode === 'US' || 
+                  country === 'United States' || 
+                  country === 'USA' ||
+                  continent === 'NA') {
                 console.log('Setting USD based on IP detection');
                 setCurrency('usd');
-                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Location (US)' }));
+                setDetectionDetails(prev => ({ ...prev, detectionMethod: `IP Location (US via ${service.split('/')[2]})` }));
                 setIsLocationDetected(true);
                 return;
-              } else if (data.country_code === 'IN' || data.country === 'India') {
+              }
+              
+              // Check for India/INR
+              if (countryCode === 'IN' || 
+                  country === 'India') {
                 console.log('Setting INR based on IP detection');
                 setCurrency('inr');
-                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Location (India)' }));
+                setDetectionDetails(prev => ({ ...prev, detectionMethod: `IP Location (India via ${service.split('/')[2]})` }));
                 setIsLocationDetected(true);
                 return;
-              } else if (data.continent_code === 'NA') {
-                console.log('Setting USD based on North America continent');
-                setCurrency('usd');
-                setDetectionDetails(prev => ({ ...prev, detectionMethod: 'IP Continent (NA)' }));
-                setIsLocationDetected(true);
-                return;
-              } else {
-                console.log('Unknown location detected:', data);
-                setDetectionDetails(prev => ({ 
-                  ...prev, 
-                  detectionMethod: `Unknown location: ${data.country || data.country_code || 'N/A'}` 
-                }));
               }
+              
+              // For other countries, continue trying other services
+              console.log('Non-target location detected, trying next service:', { countryCode, country });
+              setDetectionDetails(prev => ({ 
+                ...prev, 
+                detectionMethod: `Other location detected: ${country || countryCode || 'Unknown'}` 
+              }));
             } catch (serviceError) {
               console.log('IP service failed:', service, serviceError);
               setDetectionDetails(prev => ({ 
@@ -154,19 +149,10 @@ const PricingCalculator = () => {
             }
           }
 
-          // Method 3: Browser language as last resort
-          const language = navigator.language || navigator.languages?.[0];
-          console.log('Browser language:', language);
-          
-          if (language && language.startsWith('en-US')) {
-            console.log('Setting USD based on browser language');
-            setCurrency('usd');
-            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Browser Language (en-US)' }));
-          } else {
-            console.log('Keeping default INR');
-            setCurrency('inr');
-            setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Default (INR)' }));
-          }
+          // No IP detection worked, use default
+          console.log('IP detection failed, using default INR');
+          setCurrency('inr');
+          setDetectionDetails(prev => ({ ...prev, detectionMethod: 'Default (IP detection failed)' }));
           
         } catch (error) {
           console.log('All detection methods failed:', error);
