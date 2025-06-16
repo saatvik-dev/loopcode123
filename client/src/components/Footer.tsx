@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div>
             <h3 className="text-xl font-bold mb-4">Loopcode</h3>
-            <p className="text-neutral-400 mb-4">Professional web development services for businesses in India. Delivering quality websites and web applications that help you grow your online presence.</p>
+            <p className="text-neutral-400 mb-4">Professional web development services for businesses. Delivering quality websites and web applications that help you grow your online presence.</p>
             <div className="flex space-x-4">
               <a href="#" className="text-neutral-400 hover:text-white transition-colors">
                 <i className="ri-linkedin-fill text-lg"></i>

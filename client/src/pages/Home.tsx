@@ -282,28 +282,7 @@ const Home = () => {
             >Discover our latest projects and see how we've helped businesses succeed online</motion.p>
           </div>
 
-          {/* Filter buttons */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            {['All', 'E-commerce', 'Business', 'Portfolio'].map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setSelectedFilter(filter)}
-                className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  selectedFilter === filter
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
-          </motion.div>
+          
 
           <motion.div 
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
