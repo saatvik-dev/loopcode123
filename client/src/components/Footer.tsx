@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-2 text-neutral-400">
               <li className="flex items-start">
                 <i className="ri-mail-line mt-1 mr-3"></i>
-                <a href="mailto:contact@loopcode.dev" className="hover:text-white transition-colors">contact@loopcode.dev</a>
+                <a href="mailto:contact@loopcode.dev" className="hover:text-white transition-colors">loopcodedevs@gmail.com</a>
               </li>
               <li className="flex items-start">
                 <i className="ri-phone-line mt-1 mr-3"></i>
