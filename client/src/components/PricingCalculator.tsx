@@ -15,6 +15,7 @@ const PricingCalculator = () => {
   // Currency state with automatic detection
   const [currency, setCurrency] = useState<Currency>('inr');
   const [isLocationDetected, setIsLocationDetected] = useState(false);
+  const [showBothCurrencies, setShowBothCurrencies] = useState(true);
   
   const [serviceType, setServiceType] = useState<ServiceType>('static');
   const [pagesCount, setPagesCount] = useState(5);
@@ -38,6 +39,33 @@ const PricingCalculator = () => {
     medium: 1.5,
     complex: 2
   };
+
+  // Helper function to calculate prices for both currencies
+  const calculatePricesForBothCurrencies = () => {
+    const results: Record<Currency, any> = {} as any;
+    
+    (['inr', 'usd'] as Currency[]).forEach(curr => {
+      const service = services[serviceType][curr] as ServicePricing;
+      const extraPages = Math.max(0, pagesCount - service.pages);
+      const extraPageCost = extraPages * service.extraPage * complexityMultipliers[complexity];
+      const hostingCost = hosting === 'developer' ? (curr === 'inr' ? 2000 : 24) : 0;
+      const backendCost = backend === 'yes' ? (curr === 'inr' ? 5000 : 60) : 0;
+      const extraRevisionsCost = revisions * service.extraRevision;
+      
+      results[curr] = {
+        basePrice: service.base,
+        extraPagesPrice: extraPageCost,
+        hostingPrice: hostingCost,
+        backendPrice: backendCost,
+        revisionsPrice: extraRevisionsCost,
+        totalPrice: service.base + extraPageCost + hostingCost + backendCost + extraRevisionsCost
+      };
+    });
+    
+    return results;
+  };
+
+  const bothCurrencyPrices = calculatePricesForBothCurrencies();
 
   // Auto-detect user's currency based on location
   useEffect(() => {
@@ -151,7 +179,23 @@ const PricingCalculator = () => {
 
   const handleContactClick = () => {
     const whatsappNumber = "917093764745";
-    const message = encodeURIComponent(`Hi there! I'm interested in your web development services. My project estimate is ${formatPrice(totalPrice, currency)}. Can we discuss this further?`);
+    const currentTotal = bothCurrencyPrices[currency].totalPrice;
+    const otherCurrency = currency === 'inr' ? 'usd' : 'inr';
+    const otherTotal = bothCurrencyPrices[otherCurrency].totalPrice;
+    
+    let priceMessage = `${formatPrice(currentTotal, currency)}`;
+    if (showBothCurrencies) {
+      priceMessage += ` (${formatPrice(otherTotal, otherCurrency)})`;
+    }
+    
+    const message = encodeURIComponent(
+      `Hi there! I'm interested in your web development services.\n\n` +
+      `Service: ${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)} Website\n` +
+      `Pages: ${pagesCount}\n` +
+      `Complexity: ${complexity.charAt(0).toUpperCase() + complexity.slice(1)}\n` +
+      `Estimated Price: ${priceMessage}\n\n` +
+      `Can we discuss this project further?`
+    );
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 
     window.open(whatsappUrl, '_blank');
@@ -169,28 +213,58 @@ const PricingCalculator = () => {
         <div>
           <h3 className="text-xl font-semibold mb-6 text-neutral-900">Your Requirements</h3>
 
-          {/* Currency */}
+          {/* Currency Switcher */}
           <div className="mb-6">
-            <Label htmlFor="currency" className="text-sm font-medium mb-2 text-neutral-700">
-              Currency 
-              {!isLocationDetected && <span className="text-xs text-neutral-500">(Auto-detecting...)</span>}
-              {isLocationDetected && <span className="text-xs text-green-600">(Auto-detected)</span>}
-            </Label>
-            <Select 
-              value={currency} 
-              onValueChange={(value) => setCurrency(value as Currency)}
-            >
-              <SelectTrigger id="currency" className="w-full px-4 py-3 rounded-lg border border-neutral-300">
-                <SelectValue placeholder="Select currency" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="inr">🇮🇳 Indian Rupees (₹)</SelectItem>
-                <SelectItem value="usd">🇺🇸 US Dollars ($)</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex items-center justify-between mb-3">
+              <Label className="text-sm font-medium text-neutral-700">
+                Currency & Display Options
+              </Label>
+              {isLocationDetected && (
+                <Badge variant="secondary" className="text-xs">
+                  Auto-detected: {currency.toUpperCase()}
+                </Badge>
+              )}
+            </div>
+            
+            {/* Currency Toggle Buttons */}
+            <div className="flex gap-2 mb-3">
+              <Button
+                type="button"
+                variant={currency === 'inr' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setCurrency('inr')}
+                className="flex-1"
+              >
+                🇮🇳 INR (₹)
+              </Button>
+              <Button
+                type="button"
+                variant={currency === 'usd' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setCurrency('usd')}
+                className="flex-1"
+              >
+                🇺🇸 USD ($)
+              </Button>
+            </div>
+
+            {/* Show Both Currencies Toggle */}
+            <div className="flex items-center gap-2">
+              <input 
+                type="checkbox" 
+                id="showBoth" 
+                checked={showBothCurrencies}
+                onChange={(e) => setShowBothCurrencies(e.target.checked)}
+                className="w-4 h-4"
+              />
+              <Label htmlFor="showBoth" className="text-sm text-neutral-600 cursor-pointer">
+                Show prices in both currencies
+              </Label>
+            </div>
+            
             {!isLocationDetected && (
-              <p className="text-xs text-neutral-500 mt-1">
-                Using VPN? Please select your preferred currency manually.
+              <p className="text-xs text-neutral-500 mt-2">
+                Using VPN? Currency auto-detection may be inaccurate.
               </p>
             )}
           </div>
@@ -342,71 +416,60 @@ const PricingCalculator = () => {
           <h3 className="text-xl font-semibold mb-6 text-neutral-900">Your Estimate</h3>
 
           <div className="space-y-4 mb-8">
-            <motion.div 
-              className="flex justify-between items-center pb-2 border-b border-neutral-200"
-              key={`base-${basePrice}`}
-              initial={{ opacity: 0.6 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="text-neutral-700">Base Price</span>
-              <span className="font-medium text-neutral-900">{formatPrice(basePrice, currency)}</span>
-            </motion.div>
-
-            <motion.div 
-              className="flex justify-between items-center pb-2 border-b border-neutral-200"
-              key={`pages-${extraPagesPrice}`}
-              initial={{ opacity: 0.6 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="text-neutral-700">Extra Pages</span>
-              <span className="font-medium text-neutral-900">{formatPrice(extraPagesPrice, currency)}</span>
-            </motion.div>
-
-            <motion.div 
-              className="flex justify-between items-center pb-2 border-b border-neutral-200"
-              key={`hosting-${hostingPrice}`}
-              initial={{ opacity: 0.6 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="text-neutral-700">Hosting & Domain Setup</span>
-              <span className="font-medium text-neutral-900">{formatPrice(hostingPrice, currency)}</span>
-            </motion.div>
-
-            <motion.div 
-              className="flex justify-between items-center pb-2 border-b border-neutral-200"
-              key={`backend-${backendPrice}`}
-              initial={{ opacity: 0.6 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="text-neutral-700">Backend & Database</span>
-              <span className="font-medium text-neutral-900">{formatPrice(backendPrice, currency)}</span>
-            </motion.div>
-
-            <motion.div 
-              className="flex justify-between items-center pb-2 border-b border-neutral-200"
-              key={`revisions-${revisionsPrice}`}
-              initial={{ opacity: 0.6 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <span className="text-neutral-700">Extra Revisions</span>
-              <span className="font-medium text-neutral-900">{formatPrice(revisionsPrice, currency)}</span>
-            </motion.div>
+            {/* Price Breakdown Components */}
+            {[
+              { label: 'Base Price', key: 'basePrice' },
+              { label: 'Extra Pages', key: 'extraPagesPrice' },
+              { label: 'Hosting & Domain Setup', key: 'hostingPrice' },
+              { label: 'Backend & Database', key: 'backendPrice' },
+              { label: 'Extra Revisions', key: 'revisionsPrice' }
+            ].map(({ label, key }) => (
+              <motion.div 
+                className="flex justify-between items-center pb-2 border-b border-neutral-200"
+                key={`${key}-${bothCurrencyPrices[currency][key]}`}
+                initial={{ opacity: 0.6 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <span className="text-neutral-700">{label}</span>
+                <div className="text-right">
+                  <span className="font-medium text-neutral-900">
+                    {formatPrice(bothCurrencyPrices[currency][key], currency)}
+                  </span>
+                  {showBothCurrencies && (
+                    <div className="text-xs text-neutral-500 mt-1">
+                      {currency === 'inr' 
+                        ? formatPrice(bothCurrencyPrices.usd[key], 'usd')
+                        : formatPrice(bothCurrencyPrices.inr[key], 'inr')
+                      }
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           <motion.div 
             className="flex justify-between items-center py-4 border-t-2 border-neutral-200"
-            key={`total-${totalPrice}`}
+            key={`total-${bothCurrencyPrices[currency].totalPrice}`}
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3 }}
           >
             <span className="font-semibold text-lg text-neutral-900">Total Estimate</span>
-            <span className="font-bold text-2xl text-primary">{formatPrice(totalPrice, currency)}</span>
+            <div className="text-right">
+              <span className="font-bold text-2xl text-primary">
+                {formatPrice(bothCurrencyPrices[currency].totalPrice, currency)}
+              </span>
+              {showBothCurrencies && (
+                <div className="text-sm text-neutral-600 mt-1">
+                  {currency === 'inr' 
+                    ? formatPrice(bothCurrencyPrices.usd.totalPrice, 'usd')
+                    : formatPrice(bothCurrencyPrices.inr.totalPrice, 'inr')
+                  }
+                </div>
+              )}
+            </div>
           </motion.div>
 
           <div className="mt-8">
