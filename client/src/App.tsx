@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { useEffect } from "react";
 
 function Router() {
@@ -30,21 +31,34 @@ function App() {
       event.preventDefault(); // Prevent the error from being logged as unhandled
     };
 
+    const handleError = (event: ErrorEvent) => {
+      console.warn('Global error:', event.error);
+      event.preventDefault();
+    };
+
     window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    window.addEventListener('error', handleError);
 
     return () => {
       window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener('error', handleError);
     };
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-        <WhatsAppButton />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <div className="min-h-screen">
+            <Toaster />
+            <ErrorBoundary>
+              <Router />
+            </ErrorBoundary>
+            <WhatsAppButton />
+          </div>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
